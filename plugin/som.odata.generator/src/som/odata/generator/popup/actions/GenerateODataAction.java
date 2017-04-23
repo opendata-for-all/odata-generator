@@ -22,8 +22,13 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
+import edm.EdmFactory;
+import edm.EdmPackage;
+import edm.ODService;
 import eer.EerPackage;
 import eer.Schema;
+import som.odata.generator.er.ERToODataUtils;
+
 
 
 public class GenerateODataAction implements IObjectActionDelegate {
@@ -52,29 +57,38 @@ public class GenerateODataAction implements IObjectActionDelegate {
 	public void run(IAction action) {
 		 // Initialize the model
         EerPackage.eINSTANCE.eClass();
+        EdmPackage.eINSTANCE.eClass();
 
-        // Register the XMI resource factory for the .website extension
+        EdmFactory factory = EdmFactory.eINSTANCE;
+        
 
-        Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-        Map<String, Object> m = reg.getExtensionToFactoryMap();
-        m.put("eer", new XMIResourceFactoryImpl());
-
-        // Obtain a new resource set
-        ResourceSet resSet = new ResourceSetImpl();
-
-		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true), true);
+        Resource.Factory.Registry regER = Resource.Factory.Registry.INSTANCE;
+        Map<String, Object> mER = regER.getExtensionToFactoryMap();
+        mER.put("eer", new XMIResourceFactoryImpl());
+        
+        ResourceSet resourceSetER = new ResourceSetImpl();
+		Resource resource = resourceSetER.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true), true);
+        
+        Resource.Factory.Registry resOData = Resource.Factory.Registry.INSTANCE;
+        Map<String, Object> mOData = resOData.getExtensionToFactoryMap();
+        mOData.put("odata", new XMIResourceFactoryImpl());
+        
+        ResourceSet resourceSetOData = new ResourceSetImpl();
+        Resource resourceOData = resourceSetOData.createResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true).appendFileExtension("odata"));
+		
 		Schema schema;
+		ODService service = factory.createODService();
 		for (EObject eObject : resource.getContents()) {
 			if (eObject instanceof Schema) {
 				schema = (Schema) eObject;
-				System.out.println(schema.toString());
+				ERToODataUtils.generateODataFromER(service,schema,factory);
 			}
 		}
 
 		
 		try {
-			resource.save(Collections.emptyMap());
+			resourceOData.getContents().add(factory.createODService());
+			resourceOData.save(Collections.emptyMap());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

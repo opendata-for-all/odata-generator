@@ -11,4 +11,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf;bundle-version="2.6.0",
  org.eclipse.emf.common;bundle-version="2.12.0",
  org.eclipse.emf.ecore.xmi;bundle-version="2.12.0",
- br.ufpe.cin.eercase;bundle-version="1.0.0"
+ eer.metamodel;bundle-version="0.1.0"

@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OData Generator
+Bundle-SymbolicName: som.odata.generator;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ som.odata.metamodel;bundle-version="1.0.0",
+ org.eclipse.emf;bundle-version="2.6.0",
+ org.eclipse.emf.common;bundle-version="2.12.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.12.0",
+ br.ufpe.cin.eercase;bundle-version="1.0.0"

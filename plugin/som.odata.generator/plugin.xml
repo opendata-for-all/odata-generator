@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            id="som.odata.generator.contribution1">
+         <menu
+               icon="icons/OData-logo.png"
+               id="som.odata.generator.menu1"
+               label="ODada"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="som.odata.generator.popup.actions.GenerateODataAction"
+               enablesFor="1"
+               id="som.odata.generator.newAction"
+               label="Generate OData model from ER"
+               menubarPath="som.odata.generator.menu1/group1">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>

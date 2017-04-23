@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/som.odata.metamodel/src" modelPluginID="som.odata.metamodel"
+    modelName="Odata" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>odata.ecore</foreignModel>
+  <genPackages prefix="Edm" disposableProviderFactory="true" ecorePackage="odata.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="odata.ecore#//ODTermTarget">
+      <genEnumLiterals ecoreEnumLiteral="odata.ecore#//ODTermTarget/undefined"/>
+      <genEnumLiterals ecoreEnumLiteral="odata.ecore#//ODTermTarget/schema"/>
+      <genEnumLiterals ecoreEnumLiteral="odata.ecore#//ODTermTarget/entityType"/>
+      <genEnumLiterals ecoreEnumLiteral="odata.ecore#//ODTermTarget/property"/>
+    </genEnums>
+    <genClasses ecoreClass="odata.ecore#//ODService">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODService/schemas"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODSchema">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODSchema/nameSpace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODSchema/alias"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODSchema/entitycontainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODSchema/entityTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODSchema/complextypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODSchema/enumtypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODSchema/typeDefinitions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODSchema/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODEntityContainer"/>
+    <genClasses ecoreClass="odata.ecore#//ODNamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODNamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODType"/>
+    <genClasses ecoreClass="odata.ecore#//ODAnnotable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODAnnotable/annotations"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODStructuralType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odata.ecore#//ODStructuralType/baseType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODStructuralType/elements"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODStructuralType/abstract"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODStructuralType/openType"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODEntityType"/>
+    <genClasses ecoreClass="odata.ecore#//ODComplexType"/>
+    <genClasses ecoreClass="odata.ecore#//ODPrimitiveType"/>
+    <genClasses ecoreClass="odata.ecore#//ODEnumType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODEnumType/Members"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODProperty/defaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODProperty/maxLength"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODProperty/mimeType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODProperty/precision"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODProperty/scale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODProperty/nullable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODProperty/unicode"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//TypedElement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odata.ecore#//TypedElement/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//TypedElement/multivalued"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODNavigationProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODNavigationProperty/containsTarget"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odata.ecore#//ODNavigationProperty/partner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODNavigationProperty/nullable"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODElement"/>
+    <genClasses ecoreClass="odata.ecore#//ODExposedEntityType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odata.ecore#//ODExposedEntityType/entityType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odata.ecore#//ODExposedEntityType/navigationPropertyBindings"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODEntitySet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODEntitySet/includeInServiceDocument"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODSingleton"/>
+    <genClasses ecoreClass="odata.ecore#//ODNavigationPropertyBinding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODNavigationPropertyBinding/path"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODNavigationPropertyBinding/target"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODAnnotation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odata.ecore#//ODAnnotation/term"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODTerm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODTerm/appliesTo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODTerm/defaultValue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odata.ecore#//ODTerm/type"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODTypeDefinition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odata.ecore#//ODTypeDefinition/underlyingType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODTypeDefinition/scale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODTypeDefinition/unicode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODTypeDefinition/precision"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODTypeDefinition/maxLength"/>
+    </genClasses>
+    <genClasses ecoreClass="odata.ecore#//ODMember">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odata.ecore#//ODMember/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -134,7 +134,8 @@ public class ODStructuralTypeItemProvider extends ODTypeItemProvider {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(EdmPackage.Literals.OD_ANNOTABLE__ANNOTATIONS);
-			childrenFeatures.add(EdmPackage.Literals.OD_STRUCTURAL_TYPE__ELEMENTS);
+			childrenFeatures.add(EdmPackage.Literals.OD_STRUCTURAL_TYPE__PROPERTIES);
+			childrenFeatures.add(EdmPackage.Literals.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES);
 		}
 		return childrenFeatures;
 	}
@@ -195,7 +196,8 @@ public class ODStructuralTypeItemProvider extends ODTypeItemProvider {
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case EdmPackage.OD_STRUCTURAL_TYPE__ANNOTATIONS:
-			case EdmPackage.OD_STRUCTURAL_TYPE__ELEMENTS:
+			case EdmPackage.OD_STRUCTURAL_TYPE__PROPERTIES:
+			case EdmPackage.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -220,17 +222,12 @@ public class ODStructuralTypeItemProvider extends ODTypeItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EdmPackage.Literals.OD_STRUCTURAL_TYPE__ELEMENTS,
-				 EdmFactory.eINSTANCE.createODElement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EdmPackage.Literals.OD_STRUCTURAL_TYPE__ELEMENTS,
+				(EdmPackage.Literals.OD_STRUCTURAL_TYPE__PROPERTIES,
 				 EdmFactory.eINSTANCE.createODProperty()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EdmPackage.Literals.OD_STRUCTURAL_TYPE__ELEMENTS,
+				(EdmPackage.Literals.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES,
 				 EdmFactory.eINSTANCE.createODNavigationProperty()));
 	}
 

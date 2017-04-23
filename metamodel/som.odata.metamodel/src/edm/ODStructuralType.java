@@ -14,9 +14,10 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link edm.ODStructuralType#getBaseType <em>Base Type</em>}</li>
- *   <li>{@link edm.ODStructuralType#getElements <em>Elements</em>}</li>
  *   <li>{@link edm.ODStructuralType#getAbstract <em>Abstract</em>}</li>
  *   <li>{@link edm.ODStructuralType#getOpenType <em>Open Type</em>}</li>
+ *   <li>{@link edm.ODStructuralType#getProperties <em>Properties</em>}</li>
+ *   <li>{@link edm.ODStructuralType#getNavigationProperties <em>Navigation Properties</em>}</li>
  * </ul>
  *
  * @see edm.EdmPackage#getODStructuralType()
@@ -49,22 +50,6 @@ public interface ODStructuralType extends ODType, ODAnnotable {
 	 * @generated
 	 */
 	void setBaseType(ODStructuralType value);
-
-	/**
-	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
-	 * The list contents are of type {@link edm.ODElement}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Elements</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Elements</em>' containment reference list.
-	 * @see edm.EdmPackage#getODStructuralType_Elements()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<ODElement> getElements();
 
 	/**
 	 * Returns the value of the '<em><b>Abstract</b></em>' attribute.
@@ -117,5 +102,37 @@ public interface ODStructuralType extends ODType, ODAnnotable {
 	 * @generated
 	 */
 	void setOpenType(Boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
+	 * The list contents are of type {@link edm.ODProperty}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Properties</em>' containment reference list.
+	 * @see edm.EdmPackage#getODStructuralType_Properties()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ODProperty> getProperties();
+
+	/**
+	 * Returns the value of the '<em><b>Navigation Properties</b></em>' containment reference list.
+	 * The list contents are of type {@link edm.ODNavigationProperty}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Navigation Properties</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Navigation Properties</em>' containment reference list.
+	 * @see edm.EdmPackage#getODStructuralType_NavigationProperties()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ODNavigationProperty> getNavigationProperties();
 
 } // ODStructuralType

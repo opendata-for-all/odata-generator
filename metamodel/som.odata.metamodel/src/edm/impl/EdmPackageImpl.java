@@ -484,17 +484,8 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getODStructuralType_Elements() {
-		return (EReference)odStructuralTypeEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getODStructuralType_Abstract() {
-		return (EAttribute)odStructuralTypeEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)odStructuralTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -503,7 +494,25 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 	 * @generated
 	 */
 	public EAttribute getODStructuralType_OpenType() {
-		return (EAttribute)odStructuralTypeEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)odStructuralTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getODStructuralType_Properties() {
+		return (EReference)odStructuralTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getODStructuralType_NavigationProperties() {
+		return (EReference)odStructuralTypeEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1003,9 +1012,10 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 
 		odStructuralTypeEClass = createEClass(OD_STRUCTURAL_TYPE);
 		createEReference(odStructuralTypeEClass, OD_STRUCTURAL_TYPE__BASE_TYPE);
-		createEReference(odStructuralTypeEClass, OD_STRUCTURAL_TYPE__ELEMENTS);
 		createEAttribute(odStructuralTypeEClass, OD_STRUCTURAL_TYPE__ABSTRACT);
 		createEAttribute(odStructuralTypeEClass, OD_STRUCTURAL_TYPE__OPEN_TYPE);
+		createEReference(odStructuralTypeEClass, OD_STRUCTURAL_TYPE__PROPERTIES);
+		createEReference(odStructuralTypeEClass, OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES);
 
 		odEntityTypeEClass = createEClass(OD_ENTITY_TYPE);
 		createEReference(odEntityTypeEClass, OD_ENTITY_TYPE__KEY);
@@ -1157,9 +1167,10 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 
 		initEClass(odStructuralTypeEClass, ODStructuralType.class, "ODStructuralType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getODStructuralType_BaseType(), this.getODStructuralType(), null, "baseType", null, 0, 1, ODStructuralType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getODStructuralType_Elements(), this.getODElement(), null, "elements", null, 0, -1, ODStructuralType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getODStructuralType_Abstract(), ecorePackage.getEBooleanObject(), "abstract", null, 0, 1, ODStructuralType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getODStructuralType_OpenType(), ecorePackage.getEBooleanObject(), "openType", null, 0, 1, ODStructuralType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getODStructuralType_Properties(), this.getODProperty(), null, "properties", null, 0, -1, ODStructuralType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getODStructuralType_NavigationProperties(), this.getODNavigationProperty(), null, "navigationProperties", null, 0, -1, ODStructuralType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(odEntityTypeEClass, ODEntityType.class, "ODEntityType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getODEntityType_Key(), this.getODPropertyKeyRef(), null, "key", null, 0, -1, ODEntityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

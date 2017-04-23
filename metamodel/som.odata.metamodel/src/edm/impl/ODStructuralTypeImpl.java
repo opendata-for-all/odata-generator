@@ -5,7 +5,8 @@ package edm.impl;
 import edm.EdmPackage;
 import edm.ODAnnotable;
 import edm.ODAnnotation;
-import edm.ODElement;
+import edm.ODNavigationProperty;
+import edm.ODProperty;
 import edm.ODStructuralType;
 
 import java.util.Collection;
@@ -33,9 +34,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link edm.impl.ODStructuralTypeImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link edm.impl.ODStructuralTypeImpl#getBaseType <em>Base Type</em>}</li>
- *   <li>{@link edm.impl.ODStructuralTypeImpl#getElements <em>Elements</em>}</li>
  *   <li>{@link edm.impl.ODStructuralTypeImpl#getAbstract <em>Abstract</em>}</li>
  *   <li>{@link edm.impl.ODStructuralTypeImpl#getOpenType <em>Open Type</em>}</li>
+ *   <li>{@link edm.impl.ODStructuralTypeImpl#getProperties <em>Properties</em>}</li>
+ *   <li>{@link edm.impl.ODStructuralTypeImpl#getNavigationProperties <em>Navigation Properties</em>}</li>
  * </ul>
  *
  * @generated
@@ -60,16 +62,6 @@ public class ODStructuralTypeImpl extends ODTypeImpl implements ODStructuralType
 	 * @ordered
 	 */
 	protected ODStructuralType baseType;
-
-	/**
-	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getElements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ODElement> elements;
 
 	/**
 	 * The default value of the '{@link #getAbstract() <em>Abstract</em>}' attribute.
@@ -110,6 +102,26 @@ public class ODStructuralTypeImpl extends ODTypeImpl implements ODStructuralType
 	 * @ordered
 	 */
 	protected Boolean openType = OPEN_TYPE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProperties()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ODProperty> properties;
+
+	/**
+	 * The cached value of the '{@link #getNavigationProperties() <em>Navigation Properties</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNavigationProperties()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ODNavigationProperty> navigationProperties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -185,18 +197,6 @@ public class ODStructuralTypeImpl extends ODTypeImpl implements ODStructuralType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ODElement> getElements() {
-		if (elements == null) {
-			elements = new EObjectContainmentEList<ODElement>(ODElement.class, this, EdmPackage.OD_STRUCTURAL_TYPE__ELEMENTS);
-		}
-		return elements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Boolean getAbstract() {
 		return abstract_;
 	}
@@ -239,13 +239,39 @@ public class ODStructuralTypeImpl extends ODTypeImpl implements ODStructuralType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ODProperty> getProperties() {
+		if (properties == null) {
+			properties = new EObjectContainmentEList<ODProperty>(ODProperty.class, this, EdmPackage.OD_STRUCTURAL_TYPE__PROPERTIES);
+		}
+		return properties;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ODNavigationProperty> getNavigationProperties() {
+		if (navigationProperties == null) {
+			navigationProperties = new EObjectContainmentEList<ODNavigationProperty>(ODNavigationProperty.class, this, EdmPackage.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES);
+		}
+		return navigationProperties;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EdmPackage.OD_STRUCTURAL_TYPE__ANNOTATIONS:
 				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
-			case EdmPackage.OD_STRUCTURAL_TYPE__ELEMENTS:
-				return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
+			case EdmPackage.OD_STRUCTURAL_TYPE__PROPERTIES:
+				return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
+			case EdmPackage.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES:
+				return ((InternalEList<?>)getNavigationProperties()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -263,12 +289,14 @@ public class ODStructuralTypeImpl extends ODTypeImpl implements ODStructuralType
 			case EdmPackage.OD_STRUCTURAL_TYPE__BASE_TYPE:
 				if (resolve) return getBaseType();
 				return basicGetBaseType();
-			case EdmPackage.OD_STRUCTURAL_TYPE__ELEMENTS:
-				return getElements();
 			case EdmPackage.OD_STRUCTURAL_TYPE__ABSTRACT:
 				return getAbstract();
 			case EdmPackage.OD_STRUCTURAL_TYPE__OPEN_TYPE:
 				return getOpenType();
+			case EdmPackage.OD_STRUCTURAL_TYPE__PROPERTIES:
+				return getProperties();
+			case EdmPackage.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES:
+				return getNavigationProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -289,15 +317,19 @@ public class ODStructuralTypeImpl extends ODTypeImpl implements ODStructuralType
 			case EdmPackage.OD_STRUCTURAL_TYPE__BASE_TYPE:
 				setBaseType((ODStructuralType)newValue);
 				return;
-			case EdmPackage.OD_STRUCTURAL_TYPE__ELEMENTS:
-				getElements().clear();
-				getElements().addAll((Collection<? extends ODElement>)newValue);
-				return;
 			case EdmPackage.OD_STRUCTURAL_TYPE__ABSTRACT:
 				setAbstract((Boolean)newValue);
 				return;
 			case EdmPackage.OD_STRUCTURAL_TYPE__OPEN_TYPE:
 				setOpenType((Boolean)newValue);
+				return;
+			case EdmPackage.OD_STRUCTURAL_TYPE__PROPERTIES:
+				getProperties().clear();
+				getProperties().addAll((Collection<? extends ODProperty>)newValue);
+				return;
+			case EdmPackage.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES:
+				getNavigationProperties().clear();
+				getNavigationProperties().addAll((Collection<? extends ODNavigationProperty>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -317,14 +349,17 @@ public class ODStructuralTypeImpl extends ODTypeImpl implements ODStructuralType
 			case EdmPackage.OD_STRUCTURAL_TYPE__BASE_TYPE:
 				setBaseType((ODStructuralType)null);
 				return;
-			case EdmPackage.OD_STRUCTURAL_TYPE__ELEMENTS:
-				getElements().clear();
-				return;
 			case EdmPackage.OD_STRUCTURAL_TYPE__ABSTRACT:
 				setAbstract(ABSTRACT_EDEFAULT);
 				return;
 			case EdmPackage.OD_STRUCTURAL_TYPE__OPEN_TYPE:
 				setOpenType(OPEN_TYPE_EDEFAULT);
+				return;
+			case EdmPackage.OD_STRUCTURAL_TYPE__PROPERTIES:
+				getProperties().clear();
+				return;
+			case EdmPackage.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES:
+				getNavigationProperties().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -342,12 +377,14 @@ public class ODStructuralTypeImpl extends ODTypeImpl implements ODStructuralType
 				return annotations != null && !annotations.isEmpty();
 			case EdmPackage.OD_STRUCTURAL_TYPE__BASE_TYPE:
 				return baseType != null;
-			case EdmPackage.OD_STRUCTURAL_TYPE__ELEMENTS:
-				return elements != null && !elements.isEmpty();
 			case EdmPackage.OD_STRUCTURAL_TYPE__ABSTRACT:
 				return ABSTRACT_EDEFAULT == null ? abstract_ != null : !ABSTRACT_EDEFAULT.equals(abstract_);
 			case EdmPackage.OD_STRUCTURAL_TYPE__OPEN_TYPE:
 				return OPEN_TYPE_EDEFAULT == null ? openType != null : !OPEN_TYPE_EDEFAULT.equals(openType);
+			case EdmPackage.OD_STRUCTURAL_TYPE__PROPERTIES:
+				return properties != null && !properties.isEmpty();
+			case EdmPackage.OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES:
+				return navigationProperties != null && !navigationProperties.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

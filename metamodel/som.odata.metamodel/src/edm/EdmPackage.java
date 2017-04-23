@@ -425,22 +425,13 @@ public interface EdmPackage extends EPackage {
 	int OD_STRUCTURAL_TYPE__BASE_TYPE = OD_TYPE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OD_STRUCTURAL_TYPE__ELEMENTS = OD_TYPE_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OD_STRUCTURAL_TYPE__ABSTRACT = OD_TYPE_FEATURE_COUNT + 3;
+	int OD_STRUCTURAL_TYPE__ABSTRACT = OD_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Open Type</b></em>' attribute.
@@ -449,7 +440,25 @@ public interface EdmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OD_STRUCTURAL_TYPE__OPEN_TYPE = OD_TYPE_FEATURE_COUNT + 4;
+	int OD_STRUCTURAL_TYPE__OPEN_TYPE = OD_TYPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OD_STRUCTURAL_TYPE__PROPERTIES = OD_TYPE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Navigation Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES = OD_TYPE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>OD Structural Type</em>' class.
@@ -458,7 +467,7 @@ public interface EdmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OD_STRUCTURAL_TYPE_FEATURE_COUNT = OD_TYPE_FEATURE_COUNT + 5;
+	int OD_STRUCTURAL_TYPE_FEATURE_COUNT = OD_TYPE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>OD Structural Type</em>' class.
@@ -507,15 +516,6 @@ public interface EdmPackage extends EPackage {
 	int OD_ENTITY_TYPE__BASE_TYPE = OD_STRUCTURAL_TYPE__BASE_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OD_ENTITY_TYPE__ELEMENTS = OD_STRUCTURAL_TYPE__ELEMENTS;
-
-	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -532,6 +532,24 @@ public interface EdmPackage extends EPackage {
 	 * @ordered
 	 */
 	int OD_ENTITY_TYPE__OPEN_TYPE = OD_STRUCTURAL_TYPE__OPEN_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OD_ENTITY_TYPE__PROPERTIES = OD_STRUCTURAL_TYPE__PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Navigation Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OD_ENTITY_TYPE__NAVIGATION_PROPERTIES = OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' containment reference list.
@@ -598,15 +616,6 @@ public interface EdmPackage extends EPackage {
 	int OD_COMPLEX_TYPE__BASE_TYPE = OD_STRUCTURAL_TYPE__BASE_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OD_COMPLEX_TYPE__ELEMENTS = OD_STRUCTURAL_TYPE__ELEMENTS;
-
-	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -623,6 +632,24 @@ public interface EdmPackage extends EPackage {
 	 * @ordered
 	 */
 	int OD_COMPLEX_TYPE__OPEN_TYPE = OD_STRUCTURAL_TYPE__OPEN_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OD_COMPLEX_TYPE__PROPERTIES = OD_STRUCTURAL_TYPE__PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Navigation Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OD_COMPLEX_TYPE__NAVIGATION_PROPERTIES = OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES;
 
 	/**
 	 * The number of structural features of the '<em>OD Complex Type</em>' class.
@@ -1822,17 +1849,6 @@ public interface EdmPackage extends EPackage {
 	EReference getODStructuralType_BaseType();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link edm.ODStructuralType#getElements <em>Elements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Elements</em>'.
-	 * @see edm.ODStructuralType#getElements()
-	 * @see #getODStructuralType()
-	 * @generated
-	 */
-	EReference getODStructuralType_Elements();
-
-	/**
 	 * Returns the meta object for the attribute '{@link edm.ODStructuralType#getAbstract <em>Abstract</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1853,6 +1869,28 @@ public interface EdmPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getODStructuralType_OpenType();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link edm.ODStructuralType#getProperties <em>Properties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Properties</em>'.
+	 * @see edm.ODStructuralType#getProperties()
+	 * @see #getODStructuralType()
+	 * @generated
+	 */
+	EReference getODStructuralType_Properties();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link edm.ODStructuralType#getNavigationProperties <em>Navigation Properties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Navigation Properties</em>'.
+	 * @see edm.ODStructuralType#getNavigationProperties()
+	 * @see #getODStructuralType()
+	 * @generated
+	 */
+	EReference getODStructuralType_NavigationProperties();
 
 	/**
 	 * Returns the meta object for class '{@link edm.ODEntityType <em>OD Entity Type</em>}'.
@@ -2589,14 +2627,6 @@ public interface EdmPackage extends EPackage {
 		EReference OD_STRUCTURAL_TYPE__BASE_TYPE = eINSTANCE.getODStructuralType_BaseType();
 
 		/**
-		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OD_STRUCTURAL_TYPE__ELEMENTS = eINSTANCE.getODStructuralType_Elements();
-
-		/**
 		 * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2611,6 +2641,22 @@ public interface EdmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute OD_STRUCTURAL_TYPE__OPEN_TYPE = eINSTANCE.getODStructuralType_OpenType();
+
+		/**
+		 * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OD_STRUCTURAL_TYPE__PROPERTIES = eINSTANCE.getODStructuralType_Properties();
+
+		/**
+		 * The meta object literal for the '<em><b>Navigation Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OD_STRUCTURAL_TYPE__NAVIGATION_PROPERTIES = eINSTANCE.getODStructuralType_NavigationProperties();
 
 		/**
 		 * The meta object literal for the '{@link edm.impl.ODEntityTypeImpl <em>OD Entity Type</em>}' class.

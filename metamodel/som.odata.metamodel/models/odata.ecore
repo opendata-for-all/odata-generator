@@ -39,10 +39,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ODStructuralType" eSuperTypes="#//ODType #//ODAnnotable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseType" eType="#//ODStructuralType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
-        eType="#//ODElement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstract" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="openType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="#//ODProperty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="navigationProperties" upperBound="-1"
+        eType="#//ODNavigationProperty" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ODEntityType" eSuperTypes="#//ODStructuralType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="key" upperBound="-1" eType="#//ODPropertyKeyRef"

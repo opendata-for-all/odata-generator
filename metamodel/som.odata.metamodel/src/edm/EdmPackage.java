@@ -223,13 +223,22 @@ public interface EdmPackage extends EPackage {
 	int OD_SCHEMA__TERMS = OD_ANNOTABLE_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Primitive Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OD_SCHEMA__PRIMITIVE_TYPES = OD_ANNOTABLE_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the '<em>OD Schema</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OD_SCHEMA_FEATURE_COUNT = OD_ANNOTABLE_FEATURE_COUNT + 8;
+	int OD_SCHEMA_FEATURE_COUNT = OD_ANNOTABLE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of operations of the '<em>OD Schema</em>' class.
@@ -1697,6 +1706,17 @@ public interface EdmPackage extends EPackage {
 	EReference getODSchema_Terms();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link edm.ODSchema#getPrimitiveTypes <em>Primitive Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Primitive Types</em>'.
+	 * @see edm.ODSchema#getPrimitiveTypes()
+	 * @see #getODSchema()
+	 * @generated
+	 */
+	EReference getODSchema_PrimitiveTypes();
+
+	/**
 	 * Returns the meta object for class '{@link edm.ODEntityContainer <em>OD Entity Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2469,6 +2489,14 @@ public interface EdmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OD_SCHEMA__TERMS = eINSTANCE.getODSchema_Terms();
+
+		/**
+		 * The meta object literal for the '<em><b>Primitive Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OD_SCHEMA__PRIMITIVE_TYPES = eINSTANCE.getODSchema_PrimitiveTypes();
 
 		/**
 		 * The meta object literal for the '{@link edm.impl.ODEntityContainerImpl <em>OD Entity Container</em>}' class.

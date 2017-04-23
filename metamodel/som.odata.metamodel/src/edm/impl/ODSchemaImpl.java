@@ -7,6 +7,7 @@ import edm.ODComplexType;
 import edm.ODEntityContainer;
 import edm.ODEntityType;
 import edm.ODEnumType;
+import edm.ODPrimitiveType;
 import edm.ODSchema;
 import edm.ODTerm;
 import edm.ODTypeDefinition;
@@ -42,6 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link edm.impl.ODSchemaImpl#getEnumTypes <em>Enum Types</em>}</li>
  *   <li>{@link edm.impl.ODSchemaImpl#getTypeDefinitions <em>Type Definitions</em>}</li>
  *   <li>{@link edm.impl.ODSchemaImpl#getTerms <em>Terms</em>}</li>
+ *   <li>{@link edm.impl.ODSchemaImpl#getPrimitiveTypes <em>Primitive Types</em>}</li>
  * </ul>
  *
  * @generated
@@ -146,6 +148,16 @@ public class ODSchemaImpl extends ODAnnotableImpl implements ODSchema {
 	 * @ordered
 	 */
 	protected EList<ODTerm> terms;
+
+	/**
+	 * The cached value of the '{@link #getPrimitiveTypes() <em>Primitive Types</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimitiveTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ODPrimitiveType> primitiveTypes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -316,6 +328,18 @@ public class ODSchemaImpl extends ODAnnotableImpl implements ODSchema {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ODPrimitiveType> getPrimitiveTypes() {
+		if (primitiveTypes == null) {
+			primitiveTypes = new EObjectContainmentEList<ODPrimitiveType>(ODPrimitiveType.class, this, EdmPackage.OD_SCHEMA__PRIMITIVE_TYPES);
+		}
+		return primitiveTypes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -331,6 +355,8 @@ public class ODSchemaImpl extends ODAnnotableImpl implements ODSchema {
 				return ((InternalEList<?>)getTypeDefinitions()).basicRemove(otherEnd, msgs);
 			case EdmPackage.OD_SCHEMA__TERMS:
 				return ((InternalEList<?>)getTerms()).basicRemove(otherEnd, msgs);
+			case EdmPackage.OD_SCHEMA__PRIMITIVE_TYPES:
+				return ((InternalEList<?>)getPrimitiveTypes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -359,6 +385,8 @@ public class ODSchemaImpl extends ODAnnotableImpl implements ODSchema {
 				return getTypeDefinitions();
 			case EdmPackage.OD_SCHEMA__TERMS:
 				return getTerms();
+			case EdmPackage.OD_SCHEMA__PRIMITIVE_TYPES:
+				return getPrimitiveTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -401,6 +429,10 @@ public class ODSchemaImpl extends ODAnnotableImpl implements ODSchema {
 				getTerms().clear();
 				getTerms().addAll((Collection<? extends ODTerm>)newValue);
 				return;
+			case EdmPackage.OD_SCHEMA__PRIMITIVE_TYPES:
+				getPrimitiveTypes().clear();
+				getPrimitiveTypes().addAll((Collection<? extends ODPrimitiveType>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -437,6 +469,9 @@ public class ODSchemaImpl extends ODAnnotableImpl implements ODSchema {
 			case EdmPackage.OD_SCHEMA__TERMS:
 				getTerms().clear();
 				return;
+			case EdmPackage.OD_SCHEMA__PRIMITIVE_TYPES:
+				getPrimitiveTypes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -465,6 +500,8 @@ public class ODSchemaImpl extends ODAnnotableImpl implements ODSchema {
 				return typeDefinitions != null && !typeDefinitions.isEmpty();
 			case EdmPackage.OD_SCHEMA__TERMS:
 				return terms != null && !terms.isEmpty();
+			case EdmPackage.OD_SCHEMA__PRIMITIVE_TYPES:
+				return primitiveTypes != null && !primitiveTypes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

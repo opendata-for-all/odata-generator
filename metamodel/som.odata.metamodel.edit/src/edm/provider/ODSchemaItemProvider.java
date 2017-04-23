@@ -116,6 +116,7 @@ public class ODSchemaItemProvider extends ODAnnotableItemProvider {
 			childrenFeatures.add(EdmPackage.Literals.OD_SCHEMA__ENUM_TYPES);
 			childrenFeatures.add(EdmPackage.Literals.OD_SCHEMA__TYPE_DEFINITIONS);
 			childrenFeatures.add(EdmPackage.Literals.OD_SCHEMA__TERMS);
+			childrenFeatures.add(EdmPackage.Literals.OD_SCHEMA__PRIMITIVE_TYPES);
 		}
 		return childrenFeatures;
 	}
@@ -181,6 +182,7 @@ public class ODSchemaItemProvider extends ODAnnotableItemProvider {
 			case EdmPackage.OD_SCHEMA__ENUM_TYPES:
 			case EdmPackage.OD_SCHEMA__TYPE_DEFINITIONS:
 			case EdmPackage.OD_SCHEMA__TERMS:
+			case EdmPackage.OD_SCHEMA__PRIMITIVE_TYPES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -227,6 +229,39 @@ public class ODSchemaItemProvider extends ODAnnotableItemProvider {
 			(createChildParameter
 				(EdmPackage.Literals.OD_SCHEMA__TERMS,
 				 EdmFactory.eINSTANCE.createODTerm()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EdmPackage.Literals.OD_SCHEMA__PRIMITIVE_TYPES,
+				 EdmFactory.eINSTANCE.createODPrimitiveType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EdmPackage.Literals.OD_SCHEMA__PRIMITIVE_TYPES,
+				 EdmFactory.eINSTANCE.createODEnumType()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == EdmPackage.Literals.OD_SCHEMA__ENUM_TYPES ||
+			childFeature == EdmPackage.Literals.OD_SCHEMA__PRIMITIVE_TYPES;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

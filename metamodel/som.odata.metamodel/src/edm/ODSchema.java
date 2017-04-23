@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link edm.ODSchema#getEnumTypes <em>Enum Types</em>}</li>
  *   <li>{@link edm.ODSchema#getTypeDefinitions <em>Type Definitions</em>}</li>
  *   <li>{@link edm.ODSchema#getTerms <em>Terms</em>}</li>
+ *   <li>{@link edm.ODSchema#getPrimitiveTypes <em>Primitive Types</em>}</li>
  * </ul>
  *
  * @see edm.EdmPackage#getODSchema()
@@ -185,5 +186,21 @@ public interface ODSchema extends ODAnnotable {
 	 * @generated
 	 */
 	EList<ODTerm> getTerms();
+
+	/**
+	 * Returns the value of the '<em><b>Primitive Types</b></em>' containment reference list.
+	 * The list contents are of type {@link edm.ODPrimitiveType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Primitive Types</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Primitive Types</em>' containment reference list.
+	 * @see edm.EdmPackage#getODSchema_PrimitiveTypes()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ODPrimitiveType> getPrimitiveTypes();
 
 } // ODSchema

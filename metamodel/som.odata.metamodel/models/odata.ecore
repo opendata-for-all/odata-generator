@@ -20,6 +20,8 @@
         eType="#//ODTypeDefinition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="terms" upperBound="-1"
         eType="#//ODTerm" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primitiveTypes" upperBound="-1"
+        eType="#//ODPrimitiveType" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ODEntityContainer" eSuperTypes="#//ODNamedElement #//ODAnnotable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="entitySets" upperBound="-1"

@@ -385,6 +385,15 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getODSchema_PrimitiveTypes() {
+		return (EReference)odSchemaEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getODEntityContainer() {
 		return odEntityContainerEClass;
 	}
@@ -978,6 +987,7 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 		createEReference(odSchemaEClass, OD_SCHEMA__ENUM_TYPES);
 		createEReference(odSchemaEClass, OD_SCHEMA__TYPE_DEFINITIONS);
 		createEReference(odSchemaEClass, OD_SCHEMA__TERMS);
+		createEReference(odSchemaEClass, OD_SCHEMA__PRIMITIVE_TYPES);
 
 		odEntityContainerEClass = createEClass(OD_ENTITY_CONTAINER);
 		createEReference(odEntityContainerEClass, OD_ENTITY_CONTAINER__ENTITY_SETS);
@@ -1131,6 +1141,7 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 		initEReference(getODSchema_EnumTypes(), this.getODEnumType(), null, "enumTypes", null, 0, -1, ODSchema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getODSchema_TypeDefinitions(), this.getODTypeDefinition(), null, "typeDefinitions", null, 0, -1, ODSchema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getODSchema_Terms(), this.getODTerm(), null, "terms", null, 0, -1, ODSchema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getODSchema_PrimitiveTypes(), this.getODPrimitiveType(), null, "primitiveTypes", null, 0, -1, ODSchema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(odEntityContainerEClass, ODEntityContainer.class, "ODEntityContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getODEntityContainer_EntitySets(), this.getODEntitySet(), null, "entitySets", null, 0, -1, ODEntityContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

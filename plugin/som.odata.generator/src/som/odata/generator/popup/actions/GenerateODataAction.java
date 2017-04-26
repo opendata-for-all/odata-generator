@@ -1,10 +1,7 @@
 package som.odata.generator.popup.actions;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -87,7 +84,7 @@ public class GenerateODataAction implements IObjectActionDelegate {
 
 		
 		try {
-			resourceOData.getContents().add(factory.createODService());
+			resourceOData.getContents().add(service);
 			resourceOData.save(Collections.emptyMap());
 		} catch (IOException e) {
 			throw new RuntimeException(e);

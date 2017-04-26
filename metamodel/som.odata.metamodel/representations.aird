@@ -5,7 +5,6 @@
     <semanticResources>models/odata.genmodel</semanticResources>
     <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
     <semanticResources>plugin.xml</semanticResources>
-    <semanticResources>models/library.xmi</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_SRMqMBSIEeetJZuhOOS3_Q">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_TtkhkBSIEeetJZuhOOS3_Q" name="odata class diagram" representation="_TtkhkRSIEeetJZuhOOS3_Q">

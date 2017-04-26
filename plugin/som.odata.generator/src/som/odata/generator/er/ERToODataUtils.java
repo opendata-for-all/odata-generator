@@ -41,7 +41,10 @@ public class ERToODataUtils {
 		Map<Entity,ODEntitySet> entitySetMappings = new HashMap<>();
 		
 		ODSchema odSchema = factory.createODSchema();
+		odSchema.setNamespace("com.example.ODataDemo");
+		odSchema.setAlias("ODataDemo");
 		ODEntityContainer entityContainer = factory.createODEntityContainer();
+		entityContainer.setName("ODataDemoService");
 		odSchema.setEntityContainer(entityContainer);
 		service.getSchemas().add(odSchema);
 	

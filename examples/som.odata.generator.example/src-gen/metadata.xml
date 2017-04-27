@@ -23,6 +23,13 @@
 	<Property Name="Address" Type="com.example.ODataDemo.Address" />
 <NavigationProperty Name="Products" Type="Collection(com.example.ODataDemo.Product)" Partner="Supplier" />
 </EntityType>
+<ComplexType Name="Address"  >
+	<Property Name="Country" Type="invalid" />
+	<Property Name="Street" Type="invalid" />
+	<Property Name="City" Type="invalid" />
+	<Property Name="State" Type="invalid" />
+	<Property Name="ZipCode" Type="invalid" />
+</EntityType>
 </Schema>
 </edmx:DataServices>
 </edmx:Edmx>

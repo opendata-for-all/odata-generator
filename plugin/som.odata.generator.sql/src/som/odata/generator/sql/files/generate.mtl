@@ -1,0 +1,18 @@
+[comment encoding = UTF-8 /]
+[module generate('http://odata.org/edm/1.0.0') /] 
+
+
+[template public generateSQL(anODService : ODService)]
+
+[comment @main /]
+[file ('schema.sql', false, 'UTF-8')]
+[for (schema : ODSchema | anODService.schemas)]
+	[for (entityType : ODEntityType | schema.entityTypes)]
+CREATE TABLE [entityType.name.toLower()/](
+
+);
+
+	[/for]
+[/for]
+[/file]
+[/template]

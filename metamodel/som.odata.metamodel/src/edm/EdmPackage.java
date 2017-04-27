@@ -39,7 +39,7 @@ public interface EdmPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://odata.org/edm";
+	String eNS_URI = "http://odata.org/edm/1.0.0";
 
 	/**
 	 * The package namespace name.

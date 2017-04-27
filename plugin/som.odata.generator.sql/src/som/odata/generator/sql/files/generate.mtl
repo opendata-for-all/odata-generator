@@ -7,12 +7,39 @@
 [comment @main /]
 [file ('schema.sql', false, 'UTF-8')]
 [for (schema : ODSchema | anODService.schemas)]
+
+# Create tables
 	[for (entityType : ODEntityType | schema.entityTypes)]
-CREATE TABLE [entityType.name.toLower()/](
-
-);
-
+[entityType.generateTable()/]
 	[/for]
 [/for]
 [/file]
 [/template]
+
+[template public generateTable (entityType : ODEntityType) ]
+CREATE TABLE [entityType.name.toLower()/](
+[for (property : ODProperty | entityType.properties)]
+[property.generateColumn()/]
+[/for]
+);
+[/template]
+[template public generateColumn (property : ODProperty) ]
+[if (property.type.oclIsKindOf(ODPrimitiveType))][property.name.toLower()/] [property.type.oclAsType(ODPrimitiveType).genType() /],[/if]
+[/template]
+
+[template public genType(t : ODPrimitiveType) post(trim())]
+[if (t.name = 'Edm.Binary')]BIT
+[elseif (t.name = 'Edm.Boolean')] TINYINT(1)
+[elseif (t.name = 'Edm.Byte')]TINYINT
+[elseif (t.name = 'Edm.Date')] DATE
+[elseif (t.name = 'Edm.DateTimeOffset')] DATETIME
+[elseif (t.name = 'Edm.Decimal')] DECIMAL
+[elseif (t.name = 'Edm.Double')] DOUBLE
+[elseif (t.name = 'Edm.Guid')] INT
+[elseif (t.name = 'Edm.Int16')] INT
+[elseif (t.name = 'Edm.Int32')] INT
+[elseif (t.name = 'Edm.Int64')] BIGINT
+[elseif (t.name = 'Edm.SByte')] TINYINT
+[elseif (t.name = 'Edm.String')] VARCHAR(255)
+[elseif (t.name = 'Edm.TimeOfDay')] TIME
+[else]UNSUPPORTED[/if][/template]

@@ -735,13 +735,22 @@ public interface EdmPackage extends EPackage {
 	int OD_ENUM_TYPE__MEMBERS = OD_PRIMITIVE_TYPE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Is Flags</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OD_ENUM_TYPE__IS_FLAGS = OD_PRIMITIVE_TYPE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>OD Enum Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OD_ENUM_TYPE_FEATURE_COUNT = OD_PRIMITIVE_TYPE_FEATURE_COUNT + 1;
+	int OD_ENUM_TYPE_FEATURE_COUNT = OD_PRIMITIVE_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>OD Enum Type</em>' class.
@@ -1955,6 +1964,17 @@ public interface EdmPackage extends EPackage {
 	EReference getODEnumType_Members();
 
 	/**
+	 * Returns the meta object for the attribute '{@link edm.ODEnumType#getIsFlags <em>Is Flags</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Flags</em>'.
+	 * @see edm.ODEnumType#getIsFlags()
+	 * @see #getODEnumType()
+	 * @generated
+	 */
+	EAttribute getODEnumType_IsFlags();
+
+	/**
 	 * Returns the meta object for class '{@link edm.ODProperty <em>OD Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2713,6 +2733,14 @@ public interface EdmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OD_ENUM_TYPE__MEMBERS = eINSTANCE.getODEnumType_Members();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Flags</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OD_ENUM_TYPE__IS_FLAGS = eINSTANCE.getODEnumType_IsFlags();
 
 		/**
 		 * The meta object literal for the '{@link edm.impl.ODPropertyImpl <em>OD Property</em>}' class.

@@ -574,6 +574,15 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getODEnumType_IsFlags() {
+		return (EAttribute)odEnumTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getODProperty() {
 		return odPropertyEClass;
 	}
@@ -1026,6 +1035,7 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 
 		odEnumTypeEClass = createEClass(OD_ENUM_TYPE);
 		createEReference(odEnumTypeEClass, OD_ENUM_TYPE__MEMBERS);
+		createEAttribute(odEnumTypeEClass, OD_ENUM_TYPE__IS_FLAGS);
 
 		odPropertyEClass = createEClass(OD_PROPERTY);
 		createEAttribute(odPropertyEClass, OD_PROPERTY__DEFAULT_VALUE);
@@ -1181,6 +1191,7 @@ public class EdmPackageImpl extends EPackageImpl implements EdmPackage {
 
 		initEClass(odEnumTypeEClass, ODEnumType.class, "ODEnumType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getODEnumType_Members(), this.getODMember(), null, "Members", null, 0, -1, ODEnumType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getODEnumType_IsFlags(), ecorePackage.getEBooleanObject(), "isFlags", null, 0, 1, ODEnumType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(odPropertyEClass, ODProperty.class, "ODProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getODProperty_DefaultValue(), ecorePackage.getEString(), "defaultValue", null, 0, 1, ODProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

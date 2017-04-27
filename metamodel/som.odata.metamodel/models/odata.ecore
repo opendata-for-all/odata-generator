@@ -55,6 +55,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ODEnumType" eSuperTypes="#//ODPrimitiveType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Members" upperBound="-1"
         eType="#//ODMember" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isFlags" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="underlyingType" eType="#//ODPrimitiveType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ODProperty" eSuperTypes="#//ODElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

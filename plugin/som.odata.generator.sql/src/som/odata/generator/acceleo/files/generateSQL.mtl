@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module generate('http://odata.org/edm/1.0.0') /] 
+[module generateSQL('http://odata.org/edm/1.0.0') /] 
 
 
 [template public generateSQL(anODService : ODService)]

@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package som.odata.generator.sql;
+package som.odata.generator.acceleo;
 
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;

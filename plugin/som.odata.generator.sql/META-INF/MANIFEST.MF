@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Acceleo Sql Module Runtime Plug-in
-Bundle-SymbolicName: som.odata.generator.sql
+Bundle-SymbolicName: som.odata.generator.acceleo
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: som.odata.generator.sql.Activator
+Bundle-Activator: som.odata.generator.acceleo.Activator
 Bundle-Vendor: Eclipse Modeling Project
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
@@ -20,5 +20,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
-Export-Package: som.odata.generator.sql.files
+Export-Package: som.odata.generator.acceleo.files
 

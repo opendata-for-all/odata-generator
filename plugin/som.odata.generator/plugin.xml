@@ -5,8 +5,9 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.core.resources.IFile"
-            id="som.odata.generator.contribution1">
+            adaptable="true"
+            id="som.odata.generator.contribution1"
+            objectClass="org.eclipse.core.resources.IFile">
          <menu
                icon="icons/OData-logo.png"
                id="som.odata.generator.menu1"
@@ -21,6 +22,13 @@
                enablesFor="1"
                id="som.odata.generator.newAction"
                label="Generate OData model from ER"
+               menubarPath="som.odata.generator.menu1/group1">
+         </action>
+         <action
+               class="som.odata.generator.sql.ui.popupMenus.AcceleoGenerateSqlAction"
+               enablesFor="1"
+               id="som.odata.generator.generateSQL"
+               label="Generate SQL from OData"
                menubarPath="som.odata.generator.menu1/group1">
          </action>
       </objectContribution>

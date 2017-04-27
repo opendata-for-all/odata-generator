@@ -3,14 +3,21 @@ Bundle-ManifestVersion: 2
 Bundle-Name: OData Generator
 Bundle-SymbolicName: som.odata.generator;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- som.odata.metamodel;bundle-version="1.0.0",
- org.eclipse.emf;bundle-version="2.6.0",
- org.eclipse.emf.common;bundle-version="2.12.0",
- org.eclipse.emf.ecore.xmi;bundle-version="2.12.0"
+ som.odata.generator.sql,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.ocl,
+ org.eclipse.ocl.ecore,
+ org.eclipse.acceleo.model,
+ org.eclipse.acceleo.engine,
+ som.odata.metamodel;bundle-version="1.0.0"
 Bundle-ClassPath: libs/evo-inflector-1.2.2.jar,
  .,
  libs/br.ufpe.cin.eercase_1.0.0.201611162235.jar
+ Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

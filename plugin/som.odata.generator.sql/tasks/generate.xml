@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generate" name="som.odata.generator.sql">
-    <property name="ECLIPSE_HOME" value="../../.."/>
-    <property name="ECLIPSE_WORKSPACE" value="../.."/>
+    <property name="ECLIPSE_HOME" value="../../../../../work/eclipse-odata/eclipse"/>
+    <property name="ECLIPSE_WORKSPACE" value="../../../../../work/eclipse-odata/eclipse/workspace"/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="som.odata.generator.sql.libraryclasspath">

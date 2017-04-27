@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<edm:ODService xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:edm="http://odata.org/edm">
+<edm:ODService xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:edm="http://odata.org/edm/1.0.0">
   <schemas namespace="com.example.ODataDemo" alias="ODataDemo">
     <entityContainer name="ODataDemoService">
       <entitySets name="Products" entityType="//@schemas.0/@entityTypes.0">

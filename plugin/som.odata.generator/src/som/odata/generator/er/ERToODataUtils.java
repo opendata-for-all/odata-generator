@@ -173,6 +173,8 @@ public class ERToODataUtils {
 			primitiveType.setName("Edm.Boolean");
 		else if (dataType.equals(DataType.TIMESTAMP))
 			primitiveType.setName("Edm.Date");
+		else 
+			primitiveType.setName("Edm.String");
 		return primitiveType;
 	}
 

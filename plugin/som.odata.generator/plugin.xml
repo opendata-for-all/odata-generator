@@ -31,6 +31,13 @@
                label="Generate SQL from OData"
                menubarPath="som.odata.generator.menu1/group1">
          </action>
+         <action
+               class="som.odata.generator.popup.actions.AcceleoGenerateMetadataAction"
+               enablesFor="1"
+               id="som.odata.generator.generateMetadata"
+               label="Generate Metadata"
+               menubarPath="som.odata.generator.menu1/group1">
+         </action>
       </objectContribution>
    </extension>
 

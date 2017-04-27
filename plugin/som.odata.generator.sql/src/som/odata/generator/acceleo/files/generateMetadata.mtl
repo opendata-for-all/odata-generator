@@ -5,7 +5,29 @@
 	
 	[comment @main /]
 	[file ('metadata.xml', false, 'UTF-8')]
-		
+[for (schema : ODSchema | anODService.schemas)]
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+<edmx:DataServices>
+<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="[schema.namespace/]">
+[for (entityType : ODEntityType | schema.entityTypes)]
+<EntityType Name="[entityType.name/]" [if (entityType.abstract = true)]Abstract="true"[/if] [if(not entityType.baseType.oclIsUndefined())]BaseType="[schema.namespace.concat('.').concat(entityType.baseType.name)/]"[/if]>
+<Key>
+[for (key : ODPropertyKeyRef | entityType.key)]
+	<PropertyRef Name="[key.property.name/]"/>
+[/for]
+</Key>
+[for (property : ODProperty | entityType.properties)]
+	<Property Name="[property.name/]" Type="[if(property.multivalued = true)]Collection([if(not property.type.oclIsKindOf(ODPrimitiveType))][schema.namespace.concat('.')/][/if][property.type.name/])[else][if(not property.type.oclIsKindOf(ODPrimitiveType))][schema.namespace.concat('.')/][/if][property.type.name/][/if]" [if(not property.nullable.oclIsUndefined())]Nullable="[property.nullable/]"[/if]/>
+[/for]
+[for (navigationProperty : ODNavigationProperty | entityType.navigationProperties)]
+<NavigationProperty Name="[navigationProperty.name/]" Type="[if(navigationProperty.multivalued = true)]Collection([schema.namespace.concat('.').concat(navigationProperty.type.name)/])[else][schema.namespace.concat('.').concat(navigationProperty.type.name)/][/if]" [if(not navigationProperty.partner.oclIsUndefined())]Partner="[navigationProperty.partner.name/]"[/if] [if(not navigationProperty.nullable.oclIsUndefined())]Nullable="[navigationProperty.nullable/]"[/if]/>
+[/for]
+</EntityType>
+[/for]
+</Schema>
+</edmx:DataServices>
+</edmx:Edmx>
+[/for]		
 	[/file]
 	
 [/template]

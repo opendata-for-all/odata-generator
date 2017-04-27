@@ -30,7 +30,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 import som.odata.generator.Activator;
-import som.odata.generator.sql.ui.common.GenerateSQL;
+import som.odata.generator.common.GenerateSQL;
+
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionDelegate;

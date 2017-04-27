@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package som.odata.generator.sql.ui.common;
+package som.odata.generator.common;
 
 import java.io.IOException;
 import java.net.URL;
@@ -89,7 +89,7 @@ public class GenerateSQL {
 		monitor.subTask("Loading...");
 		som.odata.generator.acceleo.files.GenerateSQL gen0 = new som.odata.generator.acceleo.files.GenerateSQL(modelURI, targetFolder.getLocation().toFile(), arguments);
 		monitor.worked(1);
-		String generationID = org.eclipse.acceleo.engine.utils.AcceleoLaunchingUtil.computeUIProjectID("som.odata.generator.acceleo", "som.odata.generator.acceleo.files.GenerateSQLMTL", modelURI.toString(), targetFolder.getFullPath().toString(), new ArrayList<String>());
+		String generationID = org.eclipse.acceleo.engine.utils.AcceleoLaunchingUtil.computeUIProjectID("som.odata.generator.acceleo", "som.odata.generator.acceleo.files.GenerateSQL", modelURI.toString(), targetFolder.getFullPath().toString(), new ArrayList<String>());
 		gen0.setGenerationID(generationID);
 		gen0.doGenerate(BasicMonitor.toMonitor(monitor));
 			

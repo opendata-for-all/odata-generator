@@ -21,7 +21,7 @@ public class Activator extends Plugin {
     /**
      * The plug-in ID.
      */
-    public static final String PLUGIN_ID = "som.odata.generator.sql";
+    public static final String PLUGIN_ID = "som.odata.generator.acceleo";
 
     /**
      * The shared instance.

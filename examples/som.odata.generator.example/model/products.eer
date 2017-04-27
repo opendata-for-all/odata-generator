@@ -3,22 +3,22 @@
   <eer:Schema xmi:id="_xnc78B67Eeerk_bBNbnO7g">
     <nodes xsi:type="eer:Entity" xmi:id="_3HuGkB67Eeerk_bBNbnO7g" name="Product" AttributeLinkSource="_YyDWYB7AEeerk_bBNbnO7g _nFuABygmEeeXyrqMLAPUHQ _rIFpRygmEeeXyrqMLAPUHQ _t-kHICgmEeeXyrqMLAPUHQ _xmny8CgmEeeXyrqMLAPUHQ _07LT8CgmEeeXyrqMLAPUHQ _4ufNgCgmEeeXyrqMLAPUHQ" relationshipLink="_9sDkAB7AEeerk_bBNbnO7g"/>
     <nodes xsi:type="eer:Attribute" xmi:id="_LUF8cB7AEeerk_bBNbnO7g" name="ID" check="" type="IDENTIFIER" dataType="INTEGER" AttributeLinkTarget="_YyDWYB7AEeerk_bBNbnO7g"/>
-    <nodes xsi:type="eer:Attribute" xmi:id="_ovQZ8B7AEeerk_bBNbnO7g" name="Name" AttributeLinkTarget="_T3g5kB7BEeerk_bBNbnO7g"/>
+    <nodes xsi:type="eer:Attribute" xmi:id="_ovQZ8B7AEeerk_bBNbnO7g" name="Name" dataType="STRING" AttributeLinkTarget="_T3g5kB7BEeerk_bBNbnO7g"/>
     <nodes xsi:type="eer:Entity" xmi:id="_0IVLAB7AEeerk_bBNbnO7g" name="Supplier" AttributeLinkSource="_Mg7GgB7BEeerk_bBNbnO7g _T3g5kB7BEeerk_bBNbnO7g _dKYzIB7BEeerk_bBNbnO7g" relationshipLink="_DkunkB7BEeerk_bBNbnO7g"/>
     <nodes xsi:type="eer:Relationship" xmi:id="_8AA48B7AEeerk_bBNbnO7g" name="Supplied_by" relationshipLink="_9sDkAB7AEeerk_bBNbnO7g _DkunkB7BEeerk_bBNbnO7g"/>
     <nodes xsi:type="eer:Attribute" xmi:id="_KVr-AB7BEeerk_bBNbnO7g" name="ID" type="IDENTIFIER" dataType="INTEGER" AttributeLinkTarget="_Mg7GgB7BEeerk_bBNbnO7g"/>
     <nodes xsi:type="eer:Attribute" xmi:id="_cMHNAB7BEeerk_bBNbnO7g" name="Address" AttributeLinkSource="_itvuAB7BEeerk_bBNbnO7g _GZx40CgnEeeXyrqMLAPUHQ _Jot6ACgnEeeXyrqMLAPUHQ _K_h78CgnEeeXyrqMLAPUHQ _QegtICgnEeeXyrqMLAPUHQ" check="" AttributeLinkTarget="_dKYzIB7BEeerk_bBNbnO7g"/>
-    <nodes xsi:type="eer:Attribute" xmi:id="_f14JAB7BEeerk_bBNbnO7g" name="Country" AttributeLinkTarget="_itvuAB7BEeerk_bBNbnO7g"/>
-    <nodes xsi:type="eer:Attribute" xmi:id="_nFuAACgmEeeXyrqMLAPUHQ" name="Name" cardinality="2" AttributeLinkTarget="_nFuABygmEeeXyrqMLAPUHQ"/>
-    <nodes xsi:type="eer:Attribute" xmi:id="_rIFpQCgmEeeXyrqMLAPUHQ" name="Description" AttributeLinkTarget="_rIFpRygmEeeXyrqMLAPUHQ"/>
+    <nodes xsi:type="eer:Attribute" xmi:id="_f14JAB7BEeerk_bBNbnO7g" name="Country" dataType="STRING" AttributeLinkTarget="_itvuAB7BEeerk_bBNbnO7g"/>
+    <nodes xsi:type="eer:Attribute" xmi:id="_nFuAACgmEeeXyrqMLAPUHQ" name="Name" dataType="STRING"  AttributeLinkTarget="_nFuABygmEeeXyrqMLAPUHQ"/>
+    <nodes xsi:type="eer:Attribute" xmi:id="_rIFpQCgmEeeXyrqMLAPUHQ" name="Description" dataType="STRING" AttributeLinkTarget="_rIFpRygmEeeXyrqMLAPUHQ"/>
     <nodes xsi:type="eer:Attribute" xmi:id="_t-a9MCgmEeeXyrqMLAPUHQ" name="ReleasedDate" dataType="TIMESTAMP" AttributeLinkTarget="_t-kHICgmEeeXyrqMLAPUHQ"/>
     <nodes xsi:type="eer:Attribute" xmi:id="_xmepACgmEeeXyrqMLAPUHQ" name="DiscountinuedDate" dataType="TIMESTAMP" AttributeLinkTarget="_xmny8CgmEeeXyrqMLAPUHQ"/>
     <nodes xsi:type="eer:Attribute" xmi:id="_07IQoCgmEeeXyrqMLAPUHQ" name="Rating" dataType="INTEGER" AttributeLinkTarget="_07LT8CgmEeeXyrqMLAPUHQ"/>
     <nodes xsi:type="eer:Attribute" xmi:id="_4uVcgCgmEeeXyrqMLAPUHQ" name="Price" defaultValue="" dataType="FLOAT" AttributeLinkTarget="_4ufNgCgmEeeXyrqMLAPUHQ"/>
-    <nodes xsi:type="eer:Attribute" xmi:id="_GZuOcCgnEeeXyrqMLAPUHQ" name="Street" AttributeLinkTarget="_GZx40CgnEeeXyrqMLAPUHQ"/>
-    <nodes xsi:type="eer:Attribute" xmi:id="_JordwCgnEeeXyrqMLAPUHQ" name="City" AttributeLinkTarget="_Jot6ACgnEeeXyrqMLAPUHQ"/>
-    <nodes xsi:type="eer:Attribute" xmi:id="_K_ffsCgnEeeXyrqMLAPUHQ" name="State" AttributeLinkTarget="_K_h78CgnEeeXyrqMLAPUHQ"/>
-    <nodes xsi:type="eer:Attribute" xmi:id="_QecbsCgnEeeXyrqMLAPUHQ" name="ZipCode" AttributeLinkTarget="_QegtICgnEeeXyrqMLAPUHQ"/>
+    <nodes xsi:type="eer:Attribute" xmi:id="_GZuOcCgnEeeXyrqMLAPUHQ" name="Street" dataType="STRING" AttributeLinkTarget="_GZx40CgnEeeXyrqMLAPUHQ"/>
+    <nodes xsi:type="eer:Attribute" xmi:id="_JordwCgnEeeXyrqMLAPUHQ" name="City" dataType="STRING" AttributeLinkTarget="_Jot6ACgnEeeXyrqMLAPUHQ"/>
+    <nodes xsi:type="eer:Attribute" xmi:id="_K_ffsCgnEeeXyrqMLAPUHQ" name="State" dataType="STRING" AttributeLinkTarget="_K_h78CgnEeeXyrqMLAPUHQ"/>
+    <nodes xsi:type="eer:Attribute" xmi:id="_QecbsCgnEeeXyrqMLAPUHQ" name="ZipCode" dataType="STRING" AttributeLinkTarget="_QegtICgnEeeXyrqMLAPUHQ"/>
     <links xsi:type="eer:AttributeLink" xmi:id="_YyDWYB7AEeerk_bBNbnO7g" source="_3HuGkB67Eeerk_bBNbnO7g" target="_LUF8cB7AEeerk_bBNbnO7g"/>
     <links xsi:type="eer:RelationshipLink" xmi:id="_9sDkAB7AEeerk_bBNbnO7g" source="_3HuGkB67Eeerk_bBNbnO7g" target="_8AA48B7AEeerk_bBNbnO7g" cardinality="MANY"/>
     <links xsi:type="eer:RelationshipLink" xmi:id="_DkunkB7BEeerk_bBNbnO7g" source="_0IVLAB7AEeerk_bBNbnO7g" target="_8AA48B7AEeerk_bBNbnO7g"/>

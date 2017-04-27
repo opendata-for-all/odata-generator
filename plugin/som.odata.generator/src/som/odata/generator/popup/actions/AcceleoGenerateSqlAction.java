@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package som.odata.generator.sql.ui.popupMenus;
+package som.odata.generator.popup.actions;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +30,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 import som.odata.generator.Activator;
-import som.odata.generator.sql.ui.common.GenerateAll;
+import som.odata.generator.sql.ui.common.GenerateSQL;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionDelegate;
@@ -73,7 +73,7 @@ public class AcceleoGenerateSqlAction extends ActionDelegate implements IActionD
 							URI modelURI = URI.createPlatformResourceURI(model.getFullPath().toString(), true);
 							try {
 								IContainer target = model.getProject().getFolder("src-gen");
-								GenerateAll generator = new GenerateAll(modelURI, target, getArguments());
+								GenerateSQL generator = new GenerateSQL(modelURI, target, getArguments());
 								generator.doGenerate(monitor);
 							} catch (IOException e) {
 								IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);

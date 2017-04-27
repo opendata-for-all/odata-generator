@@ -29,7 +29,7 @@ import org.osgi.framework.Bundle;
 /**
  * Main entry point of the 'Sql' generation module.
  */
-public class GenerateAll {
+public class GenerateSQL {
 
 	/**
 	 * The model URI.
@@ -59,7 +59,7 @@ public class GenerateAll {
 	 *             Thrown when the output cannot be saved.
 	 * @generated
 	 */
-	public GenerateAll(URI modelURI, IContainer targetFolder, List<? extends Object> arguments) {
+	public GenerateSQL(URI modelURI, IContainer targetFolder, List<? extends Object> arguments) {
 		this.modelURI = modelURI;
 		this.targetFolder = targetFolder;
 		this.arguments = arguments;
@@ -87,9 +87,9 @@ public class GenerateAll {
 		//};
 		//gen0.doGenerate(BasicMonitor.toMonitor(monitor));
 		monitor.subTask("Loading...");
-		som.odata.generator.sql.files.Generate gen0 = new som.odata.generator.sql.files.Generate(modelURI, targetFolder.getLocation().toFile(), arguments);
+		som.odata.generator.acceleo.files.GenerateSQL gen0 = new som.odata.generator.acceleo.files.GenerateSQL(modelURI, targetFolder.getLocation().toFile(), arguments);
 		monitor.worked(1);
-		String generationID = org.eclipse.acceleo.engine.utils.AcceleoLaunchingUtil.computeUIProjectID("som.odata.generator.sql", "som.odata.generator.sql.files.Generate", modelURI.toString(), targetFolder.getFullPath().toString(), new ArrayList<String>());
+		String generationID = org.eclipse.acceleo.engine.utils.AcceleoLaunchingUtil.computeUIProjectID("som.odata.generator.acceleo", "som.odata.generator.acceleo.files.GenerateSQLMTL", modelURI.toString(), targetFolder.getFullPath().toString(), new ArrayList<String>());
 		gen0.setGenerationID(generationID);
 		gen0.doGenerate(BasicMonitor.toMonitor(monitor));
 			

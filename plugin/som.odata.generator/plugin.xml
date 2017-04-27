@@ -25,7 +25,7 @@
                menubarPath="som.odata.generator.menu1/group1">
          </action>
          <action
-               class="som.odata.generator.sql.ui.popupMenus.AcceleoGenerateSqlAction"
+               class="som.odata.generator.popup.actions.AcceleoGenerateSqlAction"
                enablesFor="1"
                id="som.odata.generator.generateSQL"
                label="Generate SQL from OData"

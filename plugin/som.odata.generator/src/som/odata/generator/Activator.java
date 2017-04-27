@@ -1,24 +1,23 @@
 package som.odata.generator;
 
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class ODataGeneratorPlugin extends AbstractUIPlugin {
+public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "som.odata.profile.utils"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "som.odata.generator"; //$NON-NLS-1$
 
 	// The shared instance
-	private static ODataGeneratorPlugin plugin;
+	private static Activator plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public ODataGeneratorPlugin() {
+	public Activator() {
 	}
 
 	/*
@@ -44,18 +43,9 @@ public class ODataGeneratorPlugin extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static ODataGeneratorPlugin getDefault() {
+	public static Activator getDefault() {
 		return plugin;
 	}
 
-	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path
-	 *
-	 * @param path the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return imageDescriptorFromPlugin(PLUGIN_ID, path);
-	}
+	
 }

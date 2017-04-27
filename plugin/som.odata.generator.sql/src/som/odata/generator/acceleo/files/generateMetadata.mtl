@@ -1,0 +1,11 @@
+[comment encoding = UTF-8 /]
+[module generateMetadata('http://odata.org/edm/1.0.0')/]
+
+[template public generateMetadata(anODService : ODService)]
+	
+	[comment @main /]
+	[file ('metadata.xml', false, 'UTF-8')]
+		
+	[/file]
+	
+[/template]

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -68,10 +69,13 @@ public class GenerateODataAction implements IObjectActionDelegate {
         
         Resource.Factory.Registry resOData = Resource.Factory.Registry.INSTANCE;
         Map<String, Object> mOData = resOData.getExtensionToFactoryMap();
-        mOData.put("odata", new XMIResourceFactoryImpl());
-        
+        mOData.put("edm", new XMIResourceFactoryImpl());
+        IContainer target = file.getProject().getFolder("src-gen");
+        if (!target.getLocation().toFile().exists()) {
+			target.getLocation().toFile().mkdirs();
+		}
         ResourceSet resourceSetOData = new ResourceSetImpl();
-        Resource resourceOData = resourceSetOData.createResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true).appendFileExtension("odata"));
+        Resource resourceOData = resourceSetOData.createResource(URI.createPlatformResourceURI(target.getFullPath().toString(), true).appendSegment(file.getName().substring(0, file.getName().lastIndexOf('.'))).appendFileExtension("edm"));
 		
 		Schema schema;
 		ODService service = factory.createODService();

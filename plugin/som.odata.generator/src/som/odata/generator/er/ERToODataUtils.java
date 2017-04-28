@@ -92,7 +92,6 @@ public class ERToODataUtils {
 							subProperty.setType(primitiveType);
 							if (subAttribute.getType().equals(AttributeType.MULTIVALUED))
 								subProperty.setMultivalued(true);
-
 						}
 					}
 				}

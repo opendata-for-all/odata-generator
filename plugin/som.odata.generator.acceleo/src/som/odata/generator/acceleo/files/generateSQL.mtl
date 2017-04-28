@@ -12,6 +12,9 @@
 	[for (entityType : ODEntityType | schema.entityTypes)]
 [entityType.generateTable()/]
 	[/for]
+[for (complexType : ODComplexType | schema.complexTypes)]
+[complexType.generateTable()/]
+	[/for]
 # Add references
 	[for (entityType : ODEntityType | schema.entityTypes)]
 		[for (naviagationProperty : ODNavigationProperty | entityType.navigationProperties)]
@@ -31,6 +34,18 @@ CREATE TABLE [entityType.name.toLower()/](
 	[naviagationProperty.generateForeignKey()/]
 [/for]
 	[for (propertyKeyRef : ODPropertyKeyRef | entityType.key) before('PRIMARY KEY (') separator(', ') after(')')][propertyKeyRef.property.name.toLower()/][/for]
+);
+[/template]
+[template public generateTable (complexType : ODComplexType) ]
+CREATE TABLE [complexType.name.toLower()/](
+	id INT not null,
+[for (property : ODProperty | complexType.properties)]
+	[property.generateColumn()/]
+[/for]
+[for (naviagationProperty : ODNavigationProperty | complexType.navigationProperties)]
+	[naviagationProperty.generateForeignKey()/]
+[/for]
+	PRIMARY KEY (id)
 );
 [/template]
 [template public generateColumn (property : ODProperty) ? (property.multivalued.oclIsUndefined() or ( property.multivalued = false))]

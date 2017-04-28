@@ -44,7 +44,7 @@ public class ERToODataUtils {
 		odSchema.setNamespace("com.example.ODataDemo");
 		odSchema.setAlias("ODataDemo");
 		ODEntityContainer entityContainer = factory.createODEntityContainer();
-		entityContainer.setName("ODataDemoService");
+		entityContainer.setName("DemoService");
 		odSchema.setEntityContainer(entityContainer);
 		service.getSchemas().add(odSchema);
 	

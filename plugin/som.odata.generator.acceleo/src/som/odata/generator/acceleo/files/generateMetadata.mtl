@@ -33,30 +33,6 @@
 	[/for]
 	</Singleton>
 [/for]
-<EntitySet Name="Products" EntityType="ODataDemo.Product">
-<NavigationPropertyBinding Path="ODataDemo.FeaturedProduct/Advertisement" Target="Advertisements"/>
-<NavigationPropertyBinding Path="Categories" Target="Categories"/>
-<NavigationPropertyBinding Path="Supplier" Target="Suppliers"/>
-<NavigationPropertyBinding Path="ProductDetail" Target="ProductDetails"/>
-</EntitySet>
-<EntitySet Name="ProductDetails" EntityType="ODataDemo.ProductDetail">
-<NavigationPropertyBinding Path="Product" Target="Products"/>
-</EntitySet>
-<EntitySet Name="Categories" EntityType="ODataDemo.Category">
-<NavigationPropertyBinding Path="Products" Target="Products"/>
-</EntitySet>
-<EntitySet Name="Suppliers" EntityType="ODataDemo.Supplier">
-<NavigationPropertyBinding Path="Products" Target="Products"/>
-</EntitySet>
-<EntitySet Name="Persons" EntityType="ODataDemo.Person">
-<NavigationPropertyBinding Path="PersonDetail" Target="PersonDetails"/>
-</EntitySet>
-<EntitySet Name="PersonDetails" EntityType="ODataDemo.PersonDetail">
-<NavigationPropertyBinding Path="Person" Target="Persons"/>
-</EntitySet>
-<EntitySet Name="Advertisements" EntityType="ODataDemo.Advertisement">
-<NavigationPropertyBinding Path="FeaturedProduct" Target="Products"/>
-</EntitySet>
 </EntityContainer>
 </Schema>
 </edmx:DataServices>
@@ -84,7 +60,7 @@
 [/for]
 [for (navigationProperty : ODNavigationProperty | complexType.navigationProperties)]
 [navigationProperty.generateNavigationProperty(schema)/][/for]
-</EntityType>
+</ComplexType>
 [/template]
 
 [template public generateEnumType (enumType : ODEnumType) ]

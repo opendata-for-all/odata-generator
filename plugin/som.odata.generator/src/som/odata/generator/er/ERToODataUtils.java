@@ -88,6 +88,7 @@ public class ERToODataUtils {
 							complexType.getProperties().add(subProperty);
 							ODPrimitiveType primitiveType = getODataType(subAttribute.getDataType(), factory);
 							odSchema.getPrimitiveTypes().add(primitiveType);
+							subProperty.setType(primitiveType);
 							if (subAttribute.getType().equals(AttributeType.MULTIVALUED))
 								subProperty.setMultivalued(true);
 

@@ -18,3 +18,7 @@ CREATE TABLE supplier(
 	
 	PRIMARY KEY (id)
 );
+# Add references
+ALTER TABLE product
+ADD FOREIGN KEY (supplier_id) REFERENCES supplier(id);
+

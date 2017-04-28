@@ -19,14 +19,25 @@
 [template public generateTable (entityType : ODEntityType) ]
 CREATE TABLE [entityType.name.toLower()/](
 [for (property : ODProperty | entityType.properties)]
-[property.generateColumn()/]
+	[property.generateColumn()/]
 [/for]
+[for (naviagationProperty : ODNavigationProperty | entityType.navigationProperties)]
+	[naviagationProperty.generateForeignKey()/]
+[/for]
+	[for (propertyKeyRef : ODPropertyKeyRef | entityType.key) before('PRIMARY KEY (') separator(', ') after(')')][propertyKeyRef.property.name.toLower()/][/for]
 );
 [/template]
-[template public generateColumn (property : ODProperty) ]
-[if (property.type.oclIsKindOf(ODPrimitiveType))][property.name.toLower()/] [property.type.oclAsType(ODPrimitiveType).genType() /],[/if]
+[template public generateColumn (property : ODProperty) ? (property.multivalued.oclIsUndefined() or ( property.multivalued = false))]
+[if (property.type.oclIsKindOf(ODPrimitiveType))][property.name.toLower()/] [property.type.oclAsType(ODPrimitiveType).genType()/] [if(property.nullable = false)]not null[/if],[/if]
 [/template]
-
+[template public generateForeignKey (navigationProperty : ODNavigationProperty) ? (navigationProperty.multivalued.oclIsUndefined() or ( navigationProperty.multivalued = false))]
+[navigationProperty.name.toLower().concat('_id') /] [navigationProperty.type.oclAsType(ODEntityType).getTypeOfId()/],
+[/template]
+[template public getTypeOfId(entityType: ODEntityType) ? (entityType.key->size() <= 1) post(trim())]
+[for (ropertyKeyRef : ODPropertyKeyRef | entityType.key)]
+	[ropertyKeyRef.property.type.oclAsType(ODPrimitiveType).genType()/]
+[/for]
+[/template]
 [template public genType(t : ODPrimitiveType) post(trim())]
 [if (t.name = 'Edm.Binary')]BIT
 [elseif (t.name = 'Edm.Boolean')] TINYINT(1)

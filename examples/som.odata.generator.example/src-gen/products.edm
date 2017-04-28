@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <edm:ODService xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:edm="http://odata.org/edm/1.0.0">
   <schemas namespace="com.example.ODataDemo" alias="ODataDemo">
-    <entityContainer name="ODataDemoService">
+    <entityContainer name="DemoService">
       <entitySets name="Products" entityType="//@schemas.0/@entityTypes.0">
         <navigationPropertyBindings path="Supplier" target="Suppliers"/>
       </entitySets>
@@ -10,7 +10,7 @@
       </entitySets>
     </entityContainer>
     <entityTypes name="Product">
-      <properties type="//@schemas.0/@primitiveTypes.0" name="ID"/>
+      <properties type="//@schemas.0/@primitiveTypes.0" name="ID" nullable="false"/>
       <properties type="//@schemas.0/@primitiveTypes.1" name="Name"/>
       <properties type="//@schemas.0/@primitiveTypes.2" name="Description"/>
       <properties type="//@schemas.0/@primitiveTypes.3" name="ReleasedDate"/>
@@ -21,18 +21,18 @@
       <key property="//@schemas.0/@entityTypes.0/@properties.0"/>
     </entityTypes>
     <entityTypes name="Supplier">
-      <properties type="//@schemas.0/@primitiveTypes.7" name="ID"/>
+      <properties type="//@schemas.0/@primitiveTypes.7" name="ID" nullable="false"/>
       <properties type="//@schemas.0/@primitiveTypes.8" name="Name"/>
       <properties type="//@schemas.0/@complexTypes.0" name="Address"/>
       <navigationProperties type="//@schemas.0/@entityTypes.0" multivalued="true" name="Products" partner="//@schemas.0/@entityTypes.0/@navigationProperties.0"/>
       <key property="//@schemas.0/@entityTypes.1/@properties.0"/>
     </entityTypes>
     <complexTypes name="Address">
-      <properties name="Country"/>
-      <properties name="Street"/>
-      <properties name="City"/>
-      <properties name="State"/>
-      <properties name="ZipCode"/>
+      <properties type="//@schemas.0/@primitiveTypes.9" name="Country"/>
+      <properties type="//@schemas.0/@primitiveTypes.10" name="Street"/>
+      <properties type="//@schemas.0/@primitiveTypes.11" name="City"/>
+      <properties type="//@schemas.0/@primitiveTypes.12" name="State"/>
+      <properties type="//@schemas.0/@primitiveTypes.13" name="ZipCode"/>
     </complexTypes>
     <primitiveTypes name="Edm.Int32"/>
     <primitiveTypes name="Edm.String"/>

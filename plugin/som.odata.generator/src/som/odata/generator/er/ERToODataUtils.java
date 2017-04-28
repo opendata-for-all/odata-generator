@@ -66,6 +66,7 @@ public class ERToODataUtils {
 					if (attribute.getType().equals(AttributeType.MULTIVALUED))
 						property.setMultivalued(true);
 					if (attribute.getType().equals(AttributeType.IDENTIFIER)) {
+						property.setNullable(false);
 						ODPropertyKeyRef keyRef = factory.createODPropertyKeyRef();
 						keyRef.setProperty(property);
 						entityType.getKey().add(keyRef);

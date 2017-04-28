@@ -13,7 +13,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ocl.ecore,
  org.eclipse.acceleo.model,
  org.eclipse.acceleo.engine,
- som.odata.metamodel;bundle-version="1.0.0"
+ som.odata.generator.acceleo,
+ som.odata.metamodel;bundle-version="1.0.0",
+ som.odata.generator.acceleo
 Bundle-ClassPath: libs/evo-inflector-1.2.2.jar,
  .,
  libs/br.ufpe.cin.eercase_1.0.0.201611162235.jar

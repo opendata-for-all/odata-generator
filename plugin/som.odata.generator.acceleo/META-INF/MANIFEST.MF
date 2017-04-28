@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Acceleo Sql Module Runtime Plug-in
+Bundle-Name: Acceleo Module Runtime Plug-in
 Bundle-SymbolicName: som.odata.generator.acceleo
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: som.odata.generator.acceleo.Activator

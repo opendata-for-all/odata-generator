@@ -89,7 +89,7 @@ public class GenerateMetadata {
 		monitor.subTask("Loading...");
 		som.odata.generator.acceleo.files.GenerateMetadata gen0 = new som.odata.generator.acceleo.files.GenerateMetadata(modelURI, targetFolder.getLocation().toFile(), arguments);
 		monitor.worked(1);
-		String generationID = org.eclipse.acceleo.engine.utils.AcceleoLaunchingUtil.computeUIProjectID("som.odata.generator.adcceleo", "som.odata.generator.acceleo.files.GenerateMetadata", modelURI.toString(), targetFolder.getFullPath().toString(), new ArrayList<String>());
+		String generationID = org.eclipse.acceleo.engine.utils.AcceleoLaunchingUtil.computeUIProjectID("som.odata.generator.acceleo", "som.odata.generator.acceleo.files.GenerateMetadata", modelURI.toString(), targetFolder.getFullPath().toString(), new ArrayList<String>());
 		gen0.setGenerationID(generationID);
 		gen0.doGenerate(BasicMonitor.toMonitor(monitor));
 			

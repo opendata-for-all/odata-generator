@@ -12,6 +12,12 @@
 	[for (entityType : ODEntityType | schema.entityTypes)]
 [entityType.generateTable()/]
 	[/for]
+# Add references
+	[for (entityType : ODEntityType | schema.entityTypes)]
+		[for (naviagationProperty : ODNavigationProperty | entityType.navigationProperties)]
+[naviagationProperty.generateReferences(entityType)/]
+[/for]
+	[/for]
 [/for]
 [/file]
 [/template]
@@ -38,6 +44,11 @@ CREATE TABLE [entityType.name.toLower()/](
 	[ropertyKeyRef.property.type.oclAsType(ODPrimitiveType).genType()/]
 [/for]
 [/template]
+[template public getId(entityType: ODEntityType) ? (entityType.key->size() <= 1) post(trim())]
+[for (ropertyKeyRef : ODPropertyKeyRef | entityType.key)]
+	[ropertyKeyRef.property.name/]
+[/for]
+[/template]
 [template public genType(t : ODPrimitiveType) post(trim())]
 [if (t.name = 'Edm.Binary')]BIT
 [elseif (t.name = 'Edm.Boolean')] TINYINT(1)
@@ -54,3 +65,7 @@ CREATE TABLE [entityType.name.toLower()/](
 [elseif (t.name = 'Edm.String')] VARCHAR(255)
 [elseif (t.name = 'Edm.TimeOfDay')] TIME
 [else]UNSUPPORTED[/if][/template]
+[template public generateReferences(navigationProperty : ODNavigationProperty, type: ODType) ? (navigationProperty.multivalued.oclIsUndefined() or ( navigationProperty.multivalued = false))]
+ALTER TABLE [type.name.toLower()/]
+ADD FOREIGN KEY ([navigationProperty.name.toLower().concat('_id')/]) REFERENCES [navigationProperty.type.name.toLower()/]([navigationProperty.type.oclAsType(ODEntityType).getId().toLower()/]);
+[/template]

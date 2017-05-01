@@ -1,0 +1,14 @@
+[comment encoding = UTF-8 /]
+[module generateService('http://odata.org/edm/1.0.0') /] 
+[import som::odata::generator::acceleo::files::service::generatePom /]
+[import som::odata::generator::acceleo::files::service::generateClasspath /]
+[import som::odata::generator::acceleo::files::service::generateWeb /]
+[template public generateSQL(anODService : ODService)]
+
+[comment @main /]
+[anODService.generateClasspath() /]
+[anODService.generatePom() /]
+[anODService.generateWeb() /]
+
+[/template]
+

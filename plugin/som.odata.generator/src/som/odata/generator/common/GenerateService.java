@@ -1,13 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2008, 2012 Obeo.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *     Obeo - initial API and implementation
- *******************************************************************************/
 package som.odata.generator.common;
 
 import java.io.IOException;
@@ -18,6 +8,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -26,9 +18,7 @@ import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.Bundle;
 
 
-/**
- * Main entry point of the 'Sql' generation module.
- */
+
 public class GenerateService {
 
 	/**
@@ -72,20 +62,12 @@ public class GenerateService {
 	 *            This will be used to display progress information to the user.
 	 * @throws IOException
 	 *             Thrown when the output cannot be saved.
+	 * @throws CoreException 
 	 * @generated
 	 */
 	public void doGenerate(IProgressMonitor monitor) throws IOException {
-		if (!targetFolder.getLocation().toFile().exists()) {
-			targetFolder.getLocation().toFile().mkdirs();
-		}
 		
-		// final URI template0 = getTemplateURI("som.odata.generator.sql", new Path("/som/odata/generator/sql/files/generate.emtl"));
-		// som.odata.generator.sql.files.Generate gen0 = new som.odata.generator.sql.files.Generate(modelURI, targetFolder.getLocation().toFile(), arguments) {
-		//	protected URI createTemplateURI(String entry) {
-		//		return template0;
-		//	}
-		//};
-		//gen0.doGenerate(BasicMonitor.toMonitor(monitor));
+	
 		monitor.subTask("Loading...");
 		som.odata.generator.acceleo.files.GenerateService gen0 = new som.odata.generator.acceleo.files.GenerateService(modelURI, targetFolder.getLocation().toFile(), arguments);
 		monitor.worked(1);

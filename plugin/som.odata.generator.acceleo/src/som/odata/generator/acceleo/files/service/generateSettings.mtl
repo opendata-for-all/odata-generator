@@ -1,0 +1,93 @@
+[comment encoding = UTF-8 /]
+[module generateSettings('http://odata.org/edm/1.0.0')]
+
+
+[template public generateSettings(anODService : ODService)]
+[generateJsdtscope()/]
+[generateFile2()/]
+[generateFile3()/]
+[generateFile4()/]
+[generateFile5()/]
+[generateFile6()/]
+[generateFile7()/]
+[generateFile8()/]
+[/template]
+[template public generateJsdtscope(anODService : ODService)]
+[file ('.settings/.jsdtscope', false, 'UTF-8')]
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="src/main/webapp"/>
+	<classpathentry kind="src" path="target/m2e-wtp/web-resources"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.WebProject">
+		<attributes>
+			<attribute name="hide" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.baseBrowserLibrary"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
+[/file]
+[/template]
+[template public generateFile2(anODService : ODService)]
+[file ('.settings/org.eclipse.jdt.core.prefs', false, 'UTF-8')]
+eclipse.preferences.version=1
+org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.5
+org.eclipse.jdt.core.compiler.compliance=1.5
+org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
+org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
+org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
+org.eclipse.jdt.core.compiler.source=1.5
+[/file]
+[/template]
+[template public generateFile3(anODService : ODService)]
+[file ('.settings/org.eclipse.m2e.core.prefs', false, 'UTF-8')]
+activeProfiles=
+eclipse.preferences.version=1
+resolveWorkspaceProjects=true
+version=1
+[/file]
+[/template]
+[template public generateFile4(anODService : ODService)]
+[file ('.settings/org.eclipse.wst.common.component', false, 'UTF-8')]
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="DemoService">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <property name="context-root" value="DemoService"/>
+        <property name="java-output-path" value="/odata.demo/target/classes"/>
+    </wb-module>
+</project-modules>
+[/file]
+[/template]
+[template public generateFile5(anODService : ODService)]
+[file ('.settings/org.eclipse.wst.common.project.facet.core.xml', false, 'UTF-8')]
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <fixed facet="wst.jsdt.web"/>
+  <installed facet="java" version="1.5"/>
+  <installed facet="jst.web" version="2.5"/>
+  <installed facet="wst.jsdt.web" version="1.0"/>
+</faceted-project>
+
+[/file]
+[/template]
+[template public generateFile6(anODService : ODService)]
+[file ('.settings/org.eclipse.wst.jsdt.ui.superType.container', false, 'UTF-8')]
+org.eclipse.wst.jsdt.launching.baseBrowserLibrary
+[/file]
+[/template]
+[template public generateFile7(anODService : ODService)]
+[file ('.settings/org.eclipse.wst.jsdt.ui.superType.name', false, 'UTF-8')]
+Window
+[/file]
+[/template]
+[template public generateFile8(anODService : ODService)]
+[file ('.settings/org.eclipse.wst.validation.prefs', false, 'UTF-8')]
+disabled=06target
+eclipse.preferences.version=1
+[/file]
+[/template]

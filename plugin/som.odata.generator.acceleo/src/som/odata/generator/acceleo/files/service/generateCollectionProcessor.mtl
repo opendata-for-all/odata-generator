@@ -1,0 +1,124 @@
+[comment encoding = UTF-8 /]
+[module generateCollectionProcessor('http://odata.org/edm/1.0.0')]
+
+
+[template public generateCollectionProcessor(anODService : ODService) {schema :ODSchema = anODService.schemas->first();} ]
+[file ('src/main/java/odata/demo/service/SQLCollectionProcessor.java', false, 'UTF-8')]
+package odata.demo.service;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import org.apache.olingo.commons.api.data.ContextURL;
+import org.apache.olingo.commons.api.data.Entity;
+import org.apache.olingo.commons.api.data.EntityCollection;
+import org.apache.olingo.commons.api.data.Property;
+import org.apache.olingo.commons.api.data.ValueType;
+import org.apache.olingo.commons.api.edm.EdmEntitySet;
+import org.apache.olingo.commons.api.edm.EdmEntityType;
+import org.apache.olingo.commons.api.ex.ODataRuntimeException;
+import org.apache.olingo.commons.api.format.ContentType;
+import org.apache.olingo.commons.api.http.HttpHeader;
+import org.apache.olingo.commons.api.http.HttpStatusCode;
+import org.apache.olingo.server.api.OData;
+import org.apache.olingo.server.api.ODataApplicationException;
+import org.apache.olingo.server.api.ODataRequest;
+import org.apache.olingo.server.api.ODataResponse;
+import org.apache.olingo.server.api.ServiceMetadata;
+import org.apache.olingo.server.api.processor.EntityCollectionProcessor;
+import org.apache.olingo.server.api.serializer.EntityCollectionSerializerOptions;
+import org.apache.olingo.server.api.serializer.ODataSerializer;
+import org.apache.olingo.server.api.serializer.SerializerException;
+import org.apache.olingo.server.api.serializer.SerializerResult;
+import org.apache.olingo.server.api.uri.UriInfo;
+import org.apache.olingo.server.api.uri.UriResource;
+import org.apache.olingo.server.api.uri.UriResourceEntitySet;
+import org.jooq.Record;
+import org.jooq.Result;
+
+public class SQLCollectionProcessor implements EntityCollectionProcessor {
+
+	private OData odata;
+	private ServiceMetadata serviceMetadata;
+	private Storage storage;
+
+	public void init(OData odata, ServiceMetadata serviceMetadata) {
+		this.odata = odata;
+		this.serviceMetadata = serviceMetadata;
+		try {
+			storage = new Storage();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void readEntityCollection(ODataRequest request, ODataResponse response, UriInfo uriInfo,
+			ContentType responseFormat) throws ODataApplicationException, SerializerException {
+
+		List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+		UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(resourcePaths.size() -1); 
+		EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
+
+		EntityCollection entitySet = null;
+		try {
+			entitySet = getData(uriInfo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		ODataSerializer serializer = odata.createSerializer(responseFormat);
+
+		EdmEntityType edmEntityType = edmEntitySet.getEntityType();
+		ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).build();
+
+		final String id = request.getRawBaseUri() + "/" + edmEntitySet.getName();
+		EntityCollectionSerializerOptions opts = EntityCollectionSerializerOptions.with().id(id).contextURL(contextUrl)
+				.build();
+		SerializerResult serializedContent = serializer.entityCollection(serviceMetadata, edmEntityType, entitySet,
+				opts);
+
+		response.setContent(serializedContent.getContent());
+		response.setStatusCode(HttpStatusCode.OK.getStatusCode());
+		response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
+	}
+
+	private EntityCollection getData(UriInfo uriInfo) throws IOException {
+		List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+		if(resourcePaths.size() == 1){
+		UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(0); 
+		EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
+		EntityCollection collection = new EntityCollection();
+[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
+		if (EdmProvider.ES_[entitySet.name.toUpper()/]_NAME.equals(edmEntitySet.getName())) {
+			List<Entity> list = collection.getEntities();
+			Result<Record> result = storage.getCreate().select().from("[entitySet.entityType.name.toLower()/]").fetch();
+
+			for (Record record : result) {
+				Entity e = new Entity();
+[for (property : ODProperty | entitySet.entityType.properties)]
+				e.addProperty(new Property(null, "[property.name /]", ValueType.PRIMITIVE, record.get("[property.name.toLower() /]")));
+[/for]
+				e.setId(createId("[entitySet.name/]", record.get("[entitySet.entityType.key -> first().property.name.toLower()/]")));
+				list.add(e);
+			}
+
+		}
+[/for]
+
+		return collection;
+		}
+		return null;
+	}
+
+	private URI createId(String entitySetName, Object id) {
+		try {
+			return new URI(entitySetName + "(" + String.valueOf(id) + ")");
+		} catch (URISyntaxException e) {
+			throw new ODataRuntimeException("Unable to create id for entity: " + entitySetName, e);
+		}
+	}
+}
+
+[/file]
+[/template]

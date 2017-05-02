@@ -42,7 +42,7 @@ public class GenerateService extends AbstractAcceleoGenerator {
      *
      * @generated
      */
-    public static final String[] TEMPLATE_NAMES = { "generateSQL" };
+    public static final String[] TEMPLATE_NAMES = { "generateService" };
     
     /**
      * The list of properties files from the launch parameters (Launch configuration).

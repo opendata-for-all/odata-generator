@@ -1,0 +1,12 @@
+[comment encoding = UTF-8 /]
+[module generateConfig('http://odata.org/edm/1.0.0')]
+
+
+[template public generateConfig(anODService : ODService)]
+[file ('src/main/resources/config.properties', false, 'UTF-8')]
+db.driver = com.mysql.jdbc.Driver
+db.url = jdbc:mysql://localhost:3306/odata
+db.user = root
+db.password = 
+[/file]
+[/template]

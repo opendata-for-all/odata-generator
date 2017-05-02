@@ -12,14 +12,11 @@
 
 	<servlet>
 	  <servlet-name>DemoServlet</servlet-name>
-	  <servlet-class>myservice.mynamespace.web.DemoServlet</servlet-class>
+	  <servlet-class>odata.demo.web.DemoServlet</servlet-class>
 	  <load-on-startup>1</load-on-startup>
 	</servlet>
 	
-	<!-- 
-		Our OData service can be invoked at 
-		http://localhost:8080/DemoService/DemoService.svc
-	-->
+
 	<servlet-mapping>
 	  <servlet-name>DemoServlet</servlet-name>
 	  <url-pattern>/DemoService.svc/*</url-pattern>

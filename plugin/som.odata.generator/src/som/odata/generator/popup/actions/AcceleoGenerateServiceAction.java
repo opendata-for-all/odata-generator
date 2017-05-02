@@ -124,7 +124,8 @@ public class AcceleoGenerateServiceAction extends ActionDelegate implements IAct
 					"org.eclipse.wst.common.modulecore.ModuleCoreNature",
 					"org.eclipse.jdt.core.javanature",
 					"org.eclipse.m2e.core.maven2Nature",
-					"org.eclipse.wst.common.project.facet.core.nature"});
+					"org.eclipse.wst.common.project.facet.core.nature",
+					"org.eclipse.wst.jsdt.core.jsNature"});
 			ICommand[] buildSpec = description.getBuildSpec();
 			List<ICommand> list = new ArrayList<>( Arrays.asList( buildSpec ) );
 			ICommand command = description.newCommand();
@@ -136,6 +137,7 @@ public class AcceleoGenerateServiceAction extends ActionDelegate implements IAct
 			list.add(command);
 			command.setBuilderName( "org.eclipse.wst.validation.validationbuilder" );
 			list.add(command);
+			
 			description.setBuildSpec( list.toArray( new ICommand[ list.size() ] ) );
 			
 			project.setDescription( description, new NullProgressMonitor() );

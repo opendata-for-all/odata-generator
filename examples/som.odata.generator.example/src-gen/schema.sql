@@ -31,3 +31,6 @@ CREATE TABLE address(
 ALTER TABLE product
 ADD FOREIGN KEY (supplier_id) REFERENCES supplier(id);
 
+ALTER TABLE supplier
+ADD FOREIGN KEY (address_id) REFERENCES address(id);
+

@@ -19,8 +19,14 @@
 	[for (entityType : ODEntityType | schema.entityTypes)]
 		[for (naviagationProperty : ODNavigationProperty | entityType.navigationProperties)]
 [naviagationProperty.generateReferences(entityType)/]
-[/for]
+		[/for]
+		[for (property : ODProperty| entityType.properties)]
+[if(property.type.oclIsKindOf(ODComplexType) and (property.multivalued.oclIsUndefined() or property.multivalued = false))]
+[property.generateReferences(entityType)/]
+[/if]
+		[/for]
 	[/for]
+
 [/for]
 [/file]
 [/template]
@@ -48,8 +54,9 @@ CREATE TABLE [complexType.name.toLower()/](
 	PRIMARY KEY (id)
 );
 [/template]
-[template public generateColumn (property : ODProperty) ? (property.multivalued.oclIsUndefined() or ( property.multivalued = false))]
-[if (property.type.oclIsKindOf(ODPrimitiveType))][property.name.toLower()/] [property.type.oclAsType(ODPrimitiveType).genType()/] [if(property.nullable = false)]not null[/if],[/if]
+[template public generateColumn (property : ODProperty) ? (property.multivalued.oclIsUndefined() or ( property.multivalued = false)) post(trim()) ]
+[if (property.type.oclIsKindOf(ODPrimitiveType))][property.name.toLower()/] [property.type.oclAsType(ODPrimitiveType).genType()/] [if(property.nullable = false)]not null[/if],[elseif] (property.type.oclIsKindOf(ODComplexType))][property.name.toLower()/]_id INT,[/if]
+
 [/template]
 [template public generateForeignKey (navigationProperty : ODNavigationProperty) ? (navigationProperty.multivalued.oclIsUndefined() or ( navigationProperty.multivalued = false))]
 [navigationProperty.name.toLower().concat('_id') /] [navigationProperty.type.oclAsType(ODEntityType).getTypeOfId()/],
@@ -83,4 +90,8 @@ CREATE TABLE [complexType.name.toLower()/](
 [template public generateReferences(navigationProperty : ODNavigationProperty, type: ODType) ? (navigationProperty.multivalued.oclIsUndefined() or ( navigationProperty.multivalued = false))]
 ALTER TABLE [type.name.toLower()/]
 ADD FOREIGN KEY ([navigationProperty.name.toLower().concat('_id')/]) REFERENCES [navigationProperty.type.name.toLower()/]([navigationProperty.type.oclAsType(ODEntityType).getId().toLower()/]);
+[/template]
+[template public generateReferences(property : ODProperty, entityType : ODEntityType)]
+ALTER TABLE [entityType.name.toLower()/]
+ADD FOREIGN KEY ([property.name.toLower().concat('_id')/]) REFERENCES [property.type.name.toLower()/](id);
 [/template]

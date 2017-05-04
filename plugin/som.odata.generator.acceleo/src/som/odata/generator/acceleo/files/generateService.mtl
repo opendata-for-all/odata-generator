@@ -9,6 +9,9 @@
 [import som::odata::generator::acceleo::files::service::generateConfig /]
 [import som::odata::generator::acceleo::files::service::generateCollectionProcessor /]
 [import som::odata::generator::acceleo::files::service::generateSettings /]
+[import som::odata::generator::acceleo::files::service::generateUtil /]
+[import som::odata::generator::acceleo::files::service::generateFilterExpressionVisitor /]
+[import som::odata::generator::acceleo::files::service::generateEntityProcessor /]
 [template public generateService(anODService : ODService)]
 
 [comment @main /]
@@ -21,6 +24,8 @@
 [anODService.generateStorage() /]
 [anODService.generateConfig() /]
 [anODService.generateCollectionProcessor() /]
-
+[anODService.generateFilterExpressionVisitor() /]
+[anODService.generateEntityProcessor() /]
+[anODService.generateUtil() /]
 [/template]
 

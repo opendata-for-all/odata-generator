@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import odata.demo.service.EdmProvider;
 import odata.demo.service.SQLCollectionProcessor;
+import odata.demo.service.SQLEntityProcessor;
 
 import org.apache.olingo.server.api.OData;
 import org.apache.olingo.server.api.ODataHttpHandler;
@@ -28,6 +29,7 @@ public class DemoServlet extends HttpServlet {
       ServiceMetadata edm = odata.createServiceMetadata(new EdmProvider(), new ArrayList<EdmxReference>());
       ODataHttpHandler handler = odata.createHandler(edm);
       handler.register(new SQLCollectionProcessor());
+      handler.register(new SQLEntityProcessor());		
 
       handler.process(req, resp);
 

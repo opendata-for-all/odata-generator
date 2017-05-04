@@ -2,36 +2,33 @@ package odata.demo.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+
 import org.apache.olingo.commons.api.data.ContextURL;
-import org.apache.olingo.commons.api.data.EntityCollection;
+import org.apache.olingo.commons.api.data.Entity;
+import org.apache.olingo.commons.api.data.ContextURL.Suffix;
 import org.apache.olingo.commons.api.edm.EdmEntitySet;
 import org.apache.olingo.commons.api.edm.EdmEntityType;
 import org.apache.olingo.commons.api.edm.EdmNavigationProperty;
-import org.apache.olingo.commons.api.edm.EdmProperty;
 import org.apache.olingo.commons.api.format.ContentType;
 import org.apache.olingo.commons.api.http.HttpHeader;
 import org.apache.olingo.commons.api.http.HttpStatusCode;
 import org.apache.olingo.server.api.OData;
 import org.apache.olingo.server.api.ODataApplicationException;
+import org.apache.olingo.server.api.ODataLibraryException;
 import org.apache.olingo.server.api.ODataRequest;
 import org.apache.olingo.server.api.ODataResponse;
 import org.apache.olingo.server.api.ServiceMetadata;
-import org.apache.olingo.server.api.processor.EntityCollectionProcessor;
-import org.apache.olingo.server.api.serializer.EntityCollectionSerializerOptions;
-import org.apache.olingo.server.api.serializer.EntityCollectionSerializerOptions.Builder;
+import org.apache.olingo.server.api.processor.EntityProcessor;
+import org.apache.olingo.server.api.serializer.EntitySerializerOptions;
 import org.apache.olingo.server.api.serializer.ODataSerializer;
 import org.apache.olingo.server.api.serializer.SerializerException;
 import org.apache.olingo.server.api.serializer.SerializerResult;
 import org.apache.olingo.server.api.uri.UriInfo;
-import org.apache.olingo.server.api.uri.UriInfoResource;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
 import org.apache.olingo.server.api.uri.UriResourceNavigation;
-import org.apache.olingo.server.api.uri.UriResourcePrimitiveProperty;
-import org.apache.olingo.server.api.uri.queryoption.OrderByItem;
-import org.apache.olingo.server.api.uri.queryoption.expression.Expression;
 import org.apache.olingo.server.api.uri.queryoption.expression.ExpressionVisitException;
-import org.apache.olingo.server.api.uri.queryoption.expression.Member;
 import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.SelectFinalStep;
@@ -40,7 +37,7 @@ import org.jooq.impl.DSL;
 
 import odata.demo.util.Util;
 
-public class SQLCollectionProcessor implements EntityCollectionProcessor {
+public class SQLEntityProcessor implements EntityProcessor {
 
 	private OData odata;
 	private ServiceMetadata serviceMetadata;
@@ -56,7 +53,7 @@ public class SQLCollectionProcessor implements EntityCollectionProcessor {
 		}
 	}
 
-	public void readEntityCollection(ODataRequest request, ODataResponse response, UriInfo uriInfo,
+	public void readEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo,
 			ContentType responseFormat) throws ODataApplicationException, SerializerException {
 
 		List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
@@ -75,39 +72,28 @@ public class SQLCollectionProcessor implements EntityCollectionProcessor {
 					.getType();
 			edmEntitySet = Util.getEnitySetFromEntityType(edmEntityType, serviceMetadata);
 		}
-		EntityCollection entityCollection = null;
+		Entity entity = null;
 		try {
-			entityCollection = getData(uriInfo, edmEntitySet);
+			entity = getData(uriInfo, edmEntitySet);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ExpressionVisitException e) {
 			e.printStackTrace();
 		}
+		
+	    ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).suffix(Suffix.ENTITY).build();
+	    EntitySerializerOptions opts = EntitySerializerOptions.with().contextURL(contextUrl).build();
 
-		if(uriInfo.getCountOption() != null){
-			 boolean isCount = uriInfo.getCountOption() .getValue();
-			    if(isCount){
-			    	entityCollection.setCount(entityCollection.getEntities().size());
-			    }
-		}
-		ODataSerializer serializer = odata.createSerializer(responseFormat);
+	    ODataSerializer serializer = this.odata.createSerializer(responseFormat);
+	    SerializerResult serializerResult = serializer.entity(this.serviceMetadata,
+	    		edmEntityType, entity, opts);
 
-		ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).build();
-
-		final String id = request.getRawBaseUri() + "/" + edmEntitySet.getName();
-		Builder builder = EntityCollectionSerializerOptions.with().id(id).contextURL(contextUrl);
-		if(uriInfo.getCountOption() != null)
-			builder.count(uriInfo.getCountOption());
-		EntityCollectionSerializerOptions opts = builder.build();
-		SerializerResult serializedContent = serializer.entityCollection(serviceMetadata, edmEntityType, entityCollection,
-				opts);
-
-		response.setContent(serializedContent.getContent());
-		response.setStatusCode(HttpStatusCode.OK.getStatusCode());
-		response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
+	    response.setContent(serializerResult.getContent());
+	    response.setStatusCode(HttpStatusCode.OK.getStatusCode());
+	    response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
 	}
 
-private EntityCollection getData(UriInfo uriInfo, EdmEntitySet edmEntitySet) throws IOException, ODataApplicationException, ExpressionVisitException  {
+	private Entity getData(UriInfo uriInfo, EdmEntitySet edmEntitySet) throws IOException, ODataApplicationException, ExpressionVisitException {
 	
 		List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
 		SelectFinalStep<Record> select = storage.getCreate().select();
@@ -121,6 +107,15 @@ private EntityCollection getData(UriInfo uriInfo, EdmEntitySet edmEntitySet) thr
 						EdmNavigationProperty edmNavigationProperty = uriResourceNavigation.getProperty();
 						EdmEntityType targetEntityType = edmNavigationProperty.getType();
 						query.addFrom(DSL.table(targetEntityType.getName().toLowerCase()));
+						if(uriResourceNavigation.getKeyPredicates() != null && !uriResourceNavigation.getKeyPredicates().isEmpty()){
+							if(EdmProvider.ET_PRODUCT_NAME.equals(targetEntityType.getName())){
+							query.addConditions(DSL.field("product.id").eq(uriResourceNavigation.getKeyPredicates().get(0).getText()));
+							}
+							if(EdmProvider.ET_SUPPLIER_NAME.equals(targetEntityType.getName())){
+							query.addConditions(DSL.field("supplier.id").eq(uriResourceNavigation.getKeyPredicates().get(0).getText()));
+							}
+
+						}
 					}
 				}
 
@@ -136,36 +131,30 @@ private EntityCollection getData(UriInfo uriInfo, EdmEntitySet edmEntitySet) thr
 				query.addFrom(DSL.table("supplier"));
 			}
 		}
-		if(uriInfo.getSkipOption()!= null && uriInfo.getTopOption() != null){
-			query.addLimit(uriInfo.getSkipOption().getValue(), uriInfo.getTopOption().getValue());
-		}
-		if(uriInfo.getOrderByOption() != null){
-			List<OrderByItem> orderItemList = uriInfo.getOrderByOption().getOrders();
-			final OrderByItem orderByItem = orderItemList.get(0);
-			Expression expression = orderByItem.getExpression();
-			if(expression instanceof Member){
-			    UriInfoResource resourcePath = ((Member)expression).getResourcePath();
-			    UriResource uriResource = resourcePath.getUriResourceParts().get(0);
-			    if (uriResource instanceof UriResourcePrimitiveProperty) {
-			       EdmProperty edmProperty = ((UriResourcePrimitiveProperty)uriResource).getProperty();
-			       final String sortPropertyName = edmProperty.getName();
-			       if(orderByItem.isDescending())
-			       query.addOrderBy(DSL.field(sortPropertyName.toLowerCase()).desc());
-			       else
-			    	   query.addOrderBy(DSL.field(sortPropertyName.toLowerCase()));
-			    }
-		}
-		}
-		if(uriInfo.getFilterOption() != null){
-			Expression filterExpression = uriInfo.getFilterOption().getExpression();
-			 FilterExpressionVisitor expressionVisitor = new FilterExpressionVisitor(query,edmEntitySet.getEntityType().getName().toLowerCase());
-			 filterExpression.accept(expressionVisitor);
-			 System.out.println(query.getSQL());
-			 
-		}
+
 		Result<Record> result = query.fetch();
-		return Util.getEntityCollection(edmEntitySet, result, storage);
+		if (result.isEmpty())
+			  throw new ODataApplicationException("Nothing found.", HttpStatusCode.NOT_FOUND.getStatusCode(), Locale.ROOT);
+		return Util.getEntity(edmEntitySet, result.get(0), storage);
+	}
+	public void createEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo, ContentType requestFormat,
+			ContentType responseFormat) throws ODataApplicationException, ODataLibraryException {
+		   throw new ODataApplicationException("Not supported.", HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
 		
 	}
+
+	public void updateEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo, ContentType requestFormat,
+			ContentType responseFormat) throws ODataApplicationException, ODataLibraryException {
+		   throw new ODataApplicationException("Not supported.", HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
+		
+	}
+
+	public void deleteEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo)
+			throws ODataApplicationException, ODataLibraryException {
+		   throw new ODataApplicationException("Not supported.", HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
+		
+	}
+
+	
 }
 

@@ -1,9 +1,0 @@
-[comment encoding = UTF-8 /]
-[module helper('http://odata.org/edm/1.0.0')]
-
-
-[query public getEntitySetFromNavigationBinding (navigationPropertyBinding : ODNavigationPropertyBinding, schema : ODSchema) :
-ODEntitySet = schema.entityContainer.entitySets -> select(name = navigationPropertyBinding.target)->first()/]
-
-[query public getNavigationPropertyFromNavigationBinding (navigationPropertyBinding : ODNavigationPropertyBinding, entityset: ODEntitySet) :
-ODNavigationProperty = entityset.entityType.navigationProperties->select(name = navigationPropertyBinding.path)->first()/]

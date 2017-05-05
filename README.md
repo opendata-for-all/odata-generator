@@ -1,2 +1,2 @@
 # odata-generator
-An Eclipse plugin to generate  OData services from ER models
+The eclipse update site of OData generator

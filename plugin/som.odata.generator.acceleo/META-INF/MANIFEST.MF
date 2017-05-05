@@ -1,12 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Acceleo Module Runtime Plug-in
-Bundle-SymbolicName: som.odata.generator.acceleo
+Bundle-SymbolicName: som.odata.generator.acceleo;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: som.odata.generator.acceleo.Activator
-Bundle-Vendor: Eclipse Modeling Project
+Bundle-Vendor: Some research lab
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.ocl,

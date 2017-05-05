@@ -14,7 +14,7 @@ CREATE TABLE product(
 CREATE TABLE supplier(
 	id INT not null,
 	name VARCHAR(255) ,
-	
+	address_id INT,
 	
 	PRIMARY KEY (id)
 );

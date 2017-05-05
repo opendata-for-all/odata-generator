@@ -7,6 +7,7 @@
       <objectContribution
             adaptable="true"
             id="som.odata.generator.contribution1"
+            nameFilter="*.eer"
             objectClass="org.eclipse.core.resources.IFile">
          <menu
                icon="icons/OData-logo.png"
@@ -20,30 +21,45 @@
          <action
                class="som.odata.generator.popup.actions.GenerateODataAction"
                enablesFor="1"
-               id="som.odata.generator.newAction"
+               id="som.odata.generator.ODataFromERAction"
                label="Generate OData model from ER"
                menubarPath="som.odata.generator.menu1/group1">
          </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="som.odata.generator.contribution2"
+            nameFilter="*.edm"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               icon="icons/OData-logo.png"
+               id="som.odata.generator.menu2"
+               label="ODada"
+               path="additions">
+            <separator
+                  name="group2">
+            </separator>
+         </menu>
          <action
                class="som.odata.generator.popup.actions.AcceleoGenerateSqlAction"
                enablesFor="1"
                id="som.odata.generator.generateSQL"
                label="Generate database schema"
-               menubarPath="som.odata.generator.menu1/group1">
+               menubarPath="som.odata.generator.menu2/group2">
          </action>
          <action
                class="som.odata.generator.popup.actions.AcceleoGenerateMetadataAction"
                enablesFor="1"
                id="som.odata.generator.generateMetadata"
                label="Generate Metadata"
-               menubarPath="som.odata.generator.menu1/group1">
+               menubarPath="som.odata.generator.menu2/group2">
          </action>
          <action
                class="som.odata.generator.popup.actions.AcceleoGenerateServiceAction"
                enablesFor="1"
                id="som.odata.generator.generateService"
                label="Generate OData service"
-               menubarPath="som.odata.generator.menu1/group1">
+               menubarPath="som.odata.generator.menu2/group2">
          </action>
       </objectContribution>
    </extension>

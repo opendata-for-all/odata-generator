@@ -71,9 +71,9 @@ public class GenerateODataAction implements IObjectActionDelegate {
         Map<String, Object> mOData = resOData.getExtensionToFactoryMap();
         mOData.put("edm", new XMIResourceFactoryImpl());
         IContainer target = file.getProject().getFolder("src-gen");
-        if (!target.getLocation().toFile().exists()) {
-			target.getLocation().toFile().mkdirs();
-		}
+//        if (!target.getLocation().toFile().exists()) {
+//			target.getLocation().toFile().mkdirs();
+//		}
         ResourceSet resourceSetOData = new ResourceSetImpl();
         Resource resourceOData = resourceSetOData.createResource(URI.createPlatformResourceURI(target.getFullPath().toString(), true).appendSegment(file.getName().substring(0, file.getName().lastIndexOf('.'))).appendFileExtension("edm"));
 		

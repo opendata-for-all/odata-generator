@@ -33,12 +33,12 @@
 [file ('.settings/org.eclipse.jdt.core.prefs', false, 'UTF-8')]
 eclipse.preferences.version=1
 org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.5
-org.eclipse.jdt.core.compiler.compliance=1.5
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
+org.eclipse.jdt.core.compiler.compliance=1.8
 org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
 org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
 org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
-org.eclipse.jdt.core.compiler.source=1.5
+org.eclipse.jdt.core.compiler.source=1.8
 [/file]
 [/template]
 [template public generateFile3(anODService : ODService)]
@@ -51,13 +51,13 @@ version=1
 [/template]
 [template public generateFile4(anODService : ODService)]
 [file ('.settings/org.eclipse.wst.common.component', false, 'UTF-8')]
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="DemoService">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.8.0">
+    <wb-module deploy-name="ODataDemo">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
-        <property name="context-root" value="DemoService"/>
+        <property name="context-root" value="ODataDemo"/>
         <property name="java-output-path" value="/odata.demo/target/classes"/>
     </wb-module>
 </project-modules>
@@ -68,7 +68,7 @@ version=1
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
   <fixed facet="wst.jsdt.web"/>
-  <installed facet="java" version="1.5"/>
+  <installed facet="java" version="1.8"/>
   <installed facet="jst.web" version="2.5"/>
   <installed facet="wst.jsdt.web" version="1.0"/>
 </faceted-project>

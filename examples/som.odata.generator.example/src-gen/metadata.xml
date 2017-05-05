@@ -5,7 +5,7 @@
 <Key>
 	<PropertyRef Name="ID"/>
 </Key>
-	<Property Name="ID" Type="Edm.Int32" />
+	<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
 	<Property Name="Name" Type="Edm.String" />
 	<Property Name="Description" Type="Edm.String" />
 	<Property Name="ReleasedDate" Type="Edm.Date" />
@@ -18,7 +18,7 @@
 <Key>
 	<PropertyRef Name="ID"/>
 </Key>
-	<Property Name="ID" Type="Edm.Int32" />
+	<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
 	<Property Name="Name" Type="Edm.String" />
 	<Property Name="Address" Type="com.example.ODataDemo.Address" />
 	<NavigationProperty Name="Products" Type="Collection(com.example.ODataDemo.Product)" Partner="Supplier" />

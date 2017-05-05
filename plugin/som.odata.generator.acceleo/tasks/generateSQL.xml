@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generateSQL" name="som.odata.generator.acceleo">
-    <property name="ECLIPSE_HOME" value="../../../../../work/eclipse-odata/eclipse"/>
-    <property name="ECLIPSE_WORKSPACE" value="../../../../../work/eclipse-odata/eclipse/workspace"/>
+    <property name="ECLIPSE_HOME" value="../../../../../work/eclipse"/>
+    <property name="ECLIPSE_WORKSPACE" value="../../../../../work/eclipse/workspace"/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="som.odata.generator.acceleo.libraryclasspath">

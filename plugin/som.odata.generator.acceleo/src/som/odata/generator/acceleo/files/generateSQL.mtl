@@ -55,7 +55,7 @@ CREATE TABLE [complexType.name.toLower()/](
 );
 [/template]
 [template public generateColumn (property : ODProperty) ? (property.multivalued.oclIsUndefined() or ( property.multivalued = false)) post(trim()) ]
-[if (property.type.oclIsKindOf(ODPrimitiveType))][property.name.toLower()/] [property.type.oclAsType(ODPrimitiveType).genType()/] [if(property.nullable = false)]not null[/if],[elseif] (property.type.oclIsKindOf(ODComplexType))][property.name.toLower()/]_id INT,[/if]
+[if (property.type.oclIsKindOf(ODPrimitiveType))][property.name.toLower()/] [property.type.oclAsType(ODPrimitiveType).genType()/] [if(property.nullable = false)]not null[/if],[elseif (property.type.oclIsKindOf(ODComplexType))][property.name.toLower()/]_id INT,[/if]
 
 [/template]
 [template public generateForeignKey (navigationProperty : ODNavigationProperty) ? (navigationProperty.multivalued.oclIsUndefined() or ( navigationProperty.multivalued = false))]

@@ -24,10 +24,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
-import edm.EdmPackage;
-
 /**
- * Entry point of the 'Generate' generation module.
+ * Entry point of the 'GenerateSQL' generation module.
  *
  * @generated
  */
@@ -337,19 +335,43 @@ public class GenerateSQL extends AbstractAcceleoGenerator {
      * 
      * @param resourceSet
      *            The resource set which registry has to be updated.
-     * @generated NOT
+     * @generated
      */
     @Override
     public void registerPackages(ResourceSet resourceSet) {
         super.registerPackages(resourceSet);
         
-        if (!isInWorkspace(EdmPackage.class)) {
-                resourceSet.getPackageRegistry().put(EdmPackage.eINSTANCE.getNsURI(), EdmPackage.eINSTANCE);
-            }
-        else
-        	resourceSet.getPackageRegistry().put("/som.odata.metamodel/models/odata.ecore", EdmPackage.eINSTANCE);
-  
-      
+        /*
+         * If you want to change the content of this method, do NOT forget to change the "@generated"
+         * tag in the Javadoc of this method to "@generated NOT". Without this new tag, any compilation
+         * of the Acceleo module with the main template that has caused the creation of this class will
+         * revert your modifications.
+         */
+        
+        /*
+         * If you need additional package registrations, you can register them here. The following line
+         * (in comment) is an example of the package registration for UML.
+         * 
+         * You can use the method  "isInWorkspace(Class c)" to check if the package that you are about to
+         * register is in the workspace.
+         * 
+         * To register a package properly, please follow the following conventions:
+         *
+         * If the package is located in another plug-in, already installed in Eclipse. The following content should
+         * have been generated at the beginning of this method. Do not register the package using this mechanism if
+         * the metamodel is located in the workspace.
+         *  
+         * if (!isInWorkspace(UMLPackage.class)) {
+         *     // The normal package registration if your metamodel is in a plugin.
+         *     resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
+         * }
+         * 
+         * If the package is located in another project in your workspace, the plugin containing the package has not
+         * been register by EMF and Acceleo should register it automatically. If you want to use the generator in
+         * stand alone, the regular registration (seen a couple lines before) is needed.
+         * 
+         * To learn more about Package Registration, have a look at the Acceleo documentation (Help -> Help Contents).
+         */
     }
 
     /**

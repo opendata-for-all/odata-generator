@@ -38,9 +38,26 @@ OData-generator requires:
 3. Right-click on your ER model and select *OData/Generate OData model from ER*. This will generate an OData model under the folder *src-gen* of your project (Check [products.edm](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/som.odata.generator.example/src-gen/products.edm), the generated model from products.eer).
 4. Right-click on the generated OData model and select:
 * *OData/Generate Metadata* to generate the corresponding metadata document (check [metadata.xml](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/som.odata.generator.example/src-gen/metadata.xml), the generated metadata document from products.edm).
-* *OData/Generate database schema to generate the DDL of the database (check [schema.sql](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/som.odata.generator.example/src-gen/schema.sql), the generated DDL* from products.edm).
+* *OData/Generate database schema* to generate the DDL of the database (check [schema.sql](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/som.odata.generator.example/src-gen/schema.sql), the generated DDL* from products.edm).
 * *OData/Generate OData service* to generate a Maven project called *odata.demo* in your workspace containing the implementation of your OData service. Note that you have te refresh your workspace in order to see all the generated files (check the generated [odata.demo](https://github.com/SOM-Research/odata-generator/tree/master/examples/odata.demo) from products.edm).
 
+## Deploy the generated service
+1. In your database, create a schema called *odata* and run the genered DDL.
+2. Add some data to you datatabse (you can use our sample script [insert.sql](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/samples/insert.sql) for products.eer).
+3. In the generated project, update the configuration file called config.properties located under the folder src/main/resources following your database configuration (i.e., host, username, password).
+4. Build and run the project in [Tomcat server](http://tomcat.apache.org/) using: 
+  * Right-click on the project and  select *Run as/Maven install" which will generate a WAR archive for the project
+  * Right-click on the project and select *Run on Server* then follow the instructions to run the Web app in your Tomcat server.
+
+## URL examples
+Some URL examples for the generated service using the default configuration:
+* Service document: `http://localhost:8080/ODataDemo/DemoService.svc/`
+* Metadata document: `http://localhost:8080/ODataDemo/DemoService.svc/$metadata`
+* List of prodcuts: `http://localhost:8080/ODataDemo/DemoService.svc/Products`
+* List of suppliers: `http://localhost:8080/ODataDemo/DemoService.svc/Suppliers`
+* List of the products of supplier 1: `http://localhost:8080/ODataDemo/DemoService.svc/Suppliers(1)/Products`
+* List of the products of products ordered by name: `http://localhost:8080/ODataDemo/DemoService.svc/Products?$orderby=Name`
+* List of the products witht the price less or equals to 4: `http://localhost:8080/ODataDemo/DemoService.svc/Products?$filter=Price le 4.00`
 ## Who is behind this project?
 
 * [Hamza Ed-douibi](http://github.com/hamzaed/ "Hamza Ed-douibi")

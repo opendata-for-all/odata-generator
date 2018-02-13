@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/som.odata.generator.feature_1.0.0.201705052209.jar" id="som.odata.generator.feature" version="1.0.0.201705052209">
+   <feature url="features/som.odata.generator.feature_1.0.0.201802131747.jar" id="som.odata.generator.feature" version="1.0.0.201802131747">
       <category name="odata_generator"/>
    </feature>
    <category-def name="odata_generator" label="OData generator"/>

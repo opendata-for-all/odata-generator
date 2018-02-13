@@ -61,6 +61,13 @@
                label="Generate OData service"
                menubarPath="som.odata.generator.menu2/group2">
          </action>
+          <action
+               class="som.odata.generator.popup.actions.GenerateODataFromUMLAction"
+               enablesFor="1"
+               id="som.odata.generator.UMLToODataAction"
+               label="Generate OData model from UML"
+               menubarPath="som.odata.generator.menu1/group1">
+         </action>
       </objectContribution>
    </extension>
 

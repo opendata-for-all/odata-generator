@@ -1,9 +1,9 @@
-OData-generator is an Eclipse plugin to generate  OData services from ER models.
-From an initial ER model, the tool generates an OData service for a MySQL database conforming to the model definition, including the transformation of OData requests to SQL queries.
+OData-generator is an Eclipse plugin to generate  OData services from UML models.
+From an initial UML model, the tool generates an OData service for a MySQL database conforming to the model definition, including the transformation of OData requests to SQL queries.
 The tool relies on an OData pivot metamodel, which is used to represent and generate OData services.
 
 ## Features
-The plugin provides a contextual menu to obtain a OData model from an ER model.
+The plugin provides a contextual menu to obtain a OData model from a UML model.
 Given the obtained OData model instance, the plugin includes a menu to generate: 
 - The metadata document conforming to the OData specification.
 - The DDL of the database.
@@ -12,8 +12,7 @@ Given the obtained OData model instance, the plugin includes a menu to generate:
 ## Requirements
 OData-generator requires:
 - Java EE distribution of Eclipse IDE (it can be found [here](http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neon3)).
-- A MySQL database (tested in MySQL 5.7).
-- [EERCASE](https://sites.google.com/a/cin.ufpe.br/eercase/) to create an ER model (you can use our [sample ER model](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/samples/products.eer)).
+- A MySQL database (tested in MySQL 5.7)
 
 ## Installation
 1. Open Eclipse IDE
@@ -31,8 +30,8 @@ OData-generator requires:
 ## Using the plugin
 
 1. Create a Java Project or use an existing project in your workspace (you can import our project called *som.odata.generator.example* located under the folder *examples*.
-2. Import your ER model (a sample model called [products.eer](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/samples/products.eer) in located under the folder *examples/sample/*). 
-3. Right-click on your ER model and select *OData/Generate OData model from ER*. This will generate an OData model under the folder *src-gen* of your project (Check [products.edm](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/som.odata.generator.example/src-gen/products.edm), the generated model from products.eer).
+2. Import your UML model (a sample model called [products.uml](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/samples/products.uml) in located under the folder *examples/sample/*). 
+3. Right-click on your UML model and select *OData/Generate OData model from UML*. This will generate an OData model under the folder *src-gen* of your project (Check [products.edm](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/som.odata.generator.example/src-gen/products.edm), the generated model from products.uml).
 4. Right-click on the generated OData model and select:
 * *OData/Generate Metadata* to generate the corresponding metadata document (check [metadata.xml](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/som.odata.generator.example/src-gen/metadata.xml), the generated metadata document from products.edm).
 * *OData/Generate database schema* to generate the DDL of the database (check [schema.sql](https://raw.githubusercontent.com/SOM-Research/odata-generator/master/examples/som.odata.generator.example/src-gen/schema.sql), the generated DDL* from products.edm).

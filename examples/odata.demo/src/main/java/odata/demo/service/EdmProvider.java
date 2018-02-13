@@ -66,15 +66,15 @@ public class EdmProvider extends CsdlAbstractEdmProvider {
 
     if(complexTypeName.equals(CT_ADDRESS_FQN)){
 
-	CsdlProperty country = new CsdlProperty().setName("Country").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName());
 	CsdlProperty street = new CsdlProperty().setName("Street").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName());
 	CsdlProperty city = new CsdlProperty().setName("City").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName());
 	CsdlProperty state = new CsdlProperty().setName("State").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName());
 	CsdlProperty zipcode = new CsdlProperty().setName("ZipCode").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName());
+	CsdlProperty country = new CsdlProperty().setName("Country").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName());
     
       CsdlComplexType complexType = new CsdlComplexType();
       complexType.setName(CT_ADDRESS_NAME);
-      complexType.setProperties(Arrays.asList(country,street,city,state,zipcode));
+      complexType.setProperties(Arrays.asList(street,city,state,zipcode,country));
 
       return complexType;
     }

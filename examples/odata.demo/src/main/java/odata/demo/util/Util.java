@@ -125,11 +125,11 @@ public class Util {
 				e.addProperty(new Property(null, "Name", ValueType.PRIMITIVE, record.get("name")));
 				ComplexValue addressType = new ComplexValue();
 				Record addressResult = storage.getCreate().select().from("address").where(DSL.field("id").eq( record.get("address_id"))).fetch().get(0);
-				addressType.getValue().add(new Property(null, "Country", ValueType.PRIMITIVE, addressResult.get("country")));
 				addressType.getValue().add(new Property(null, "Street", ValueType.PRIMITIVE, addressResult.get("street")));
 				addressType.getValue().add(new Property(null, "City", ValueType.PRIMITIVE, addressResult.get("city")));
 				addressType.getValue().add(new Property(null, "State", ValueType.PRIMITIVE, addressResult.get("state")));
 				addressType.getValue().add(new Property(null, "ZipCode", ValueType.PRIMITIVE, addressResult.get("zipcode")));
+				addressType.getValue().add(new Property(null, "Country", ValueType.PRIMITIVE, addressResult.get("country")));
 				e.addProperty(new Property(null, "Address", ValueType.COMPLEX, addressType));				
 				e.setId(createId("Suppliers", record.get("id")));
 				list.add(e);
@@ -138,10 +138,10 @@ public class Util {
 		}
 			return collection;
 	}
-	public static Entity getEntity(EdmEntitySet edmEntitySet, Record record, Storage storage) {
+	public static Entity getEntity(EdmEntityType edmEntityType, Record record, Storage storage) {
 		
 		Entity entity = new Entity();
-		if (EdmProvider.ES_PRODUCTS_NAME.equals(edmEntitySet.getName())) {
+		if (EdmProvider.ET_PRODUCT_NAME.equals(edmEntityType.getName())) {
 				entity.addProperty(new Property(null, "ID", ValueType.PRIMITIVE, record.get("id")));
 				entity.addProperty(new Property(null, "Name", ValueType.PRIMITIVE, record.get("name")));
 				entity.addProperty(new Property(null, "Description", ValueType.PRIMITIVE, record.get("description")));
@@ -151,16 +151,16 @@ public class Util {
 				entity.addProperty(new Property(null, "Price", ValueType.PRIMITIVE, record.get("price")));
 				entity.setId(createId("Products", record.get("id")));
 			}
-		if (EdmProvider.ES_SUPPLIERS_NAME.equals(edmEntitySet.getName())) {
+		if (EdmProvider.ET_SUPPLIER_NAME.equals(edmEntityType.getName())) {
 				entity.addProperty(new Property(null, "ID", ValueType.PRIMITIVE, record.get("id")));
 				entity.addProperty(new Property(null, "Name", ValueType.PRIMITIVE, record.get("name")));
 				ComplexValue addressType = new ComplexValue();
 				Record addressResult = storage.getCreate().select().from("address").where(DSL.field("id").eq( record.get("address_id"))).fetch().get(0);
-				addressType.getValue().add(new Property(null, "Country", ValueType.PRIMITIVE, addressResult.get("country")));
 				addressType.getValue().add(new Property(null, "Street", ValueType.PRIMITIVE, addressResult.get("street")));
 				addressType.getValue().add(new Property(null, "City", ValueType.PRIMITIVE, addressResult.get("city")));
 				addressType.getValue().add(new Property(null, "State", ValueType.PRIMITIVE, addressResult.get("state")));
 				addressType.getValue().add(new Property(null, "ZipCode", ValueType.PRIMITIVE, addressResult.get("zipcode")));
+				addressType.getValue().add(new Property(null, "Country", ValueType.PRIMITIVE, addressResult.get("country")));
 				entity.addProperty(new Property(null, "Address", ValueType.COMPLEX, addressType));				
 				entity.setId(createId("Suppliers", record.get("id")));
 			}

@@ -10,11 +10,42 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
+import org.apache.olingo.commons.api.data.ComplexValue;
+import org.apache.olingo.commons.api.data.Entity;
+import org.apache.olingo.commons.api.data.Property;
+import org.apache.olingo.commons.api.data.ValueType;
+import org.apache.olingo.commons.api.edm.EdmEntitySet;
+import org.apache.olingo.commons.api.edm.EdmEntityType;
+import org.apache.olingo.commons.api.edm.EdmNavigationProperty;
+import org.apache.olingo.commons.api.edm.EdmPrimitiveTypeKind;
+import org.apache.olingo.commons.api.http.HttpMethod;
+import org.apache.olingo.commons.api.http.HttpStatusCode;
+import org.apache.olingo.server.api.ODataApplicationException;
+import org.apache.olingo.server.api.ServiceMetadata;
+import org.apache.olingo.server.api.uri.UriInfo;
+import org.apache.olingo.server.api.uri.UriParameter;
+import org.apache.olingo.server.api.uri.UriResource;
+import org.apache.olingo.server.api.uri.UriResourceEntitySet;
+import org.apache.olingo.server.api.uri.UriResourceNavigation;
+import org.apache.olingo.server.api.uri.queryoption.expression.ExpressionVisitException;
 import org.jooq.DSLContext;
+import org.jooq.InsertQuery;
+import org.jooq.Record;
+import org.jooq.Result;
 import org.jooq.SQLDialect;
+import org.jooq.SelectFinalStep;
+import org.jooq.SelectQuery;
+import org.jooq.UpdateQuery;
 import org.jooq.impl.DSL;
+
+import odata.demo.util.Util;
+
+
 
 public class Storage {
 	private DSLContext create; 
@@ -42,6 +73,205 @@ public class Storage {
 	public void setCreate(DSLContext create) {
 		this.create = create;
 	}
+		public Entity readEntityData(UriInfo uriInfo, EdmEntityType edmEntityType, ServiceMetadata metadata) throws IOException, ODataApplicationException, ExpressionVisitException {
+		
+		List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+		SelectFinalStep<Record> select = create.select();
+		SelectQuery<Record> query = select.getQuery();
+			for (int i = resourcePaths.size() - 1; i >= 0; i--) {
+					UriResource uriResource = resourcePaths.get(i);
+					if (uriResource instanceof UriResourceNavigation) {
+						
+						UriResourceNavigation uriResourceNavigation = (UriResourceNavigation) uriResource;
+						EdmNavigationProperty edmNavigationProperty = uriResourceNavigation.getProperty();
+						EdmEntityType targetEntityType = edmNavigationProperty.getType();
+						if( i == resourcePaths.size() - 1)
+						query.addFrom(DSL.table(targetEntityType.getName().toLowerCase()));
+						if(uriResourceNavigation.getKeyPredicates() != null && !uriResourceNavigation.getKeyPredicates().isEmpty()){
+[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
+							if(EdmProvider.ET_[entitySet.entityType.name.toUpper()/]_NAME.equals(targetEntityType.getName())){
+							query.addConditions(DSL.field("[entitySet.entityType.name.toLower()/].id").eq(uriResourceNavigation.getKeyPredicates().get(0).getText()));
+							}
+[/for]
+
+						}
+					}
+					
+					if (uriResource instanceof UriResourceEntitySet) {
+						 UriResourceEntitySet  uriResourceEntitySet = (UriResourceEntitySet) uriResource;
+							EdmEntityType targetEntityType = uriResourceEntitySet.getEntityType();
+							if( i == resourcePaths.size() - 1)
+							query.addFrom(DSL.table(targetEntityType.getName().toLowerCase()));
+							if(uriResourceEntitySet.getKeyPredicates() != null && !uriResourceEntitySet.getKeyPredicates().isEmpty()){
+								if(EdmProvider.ET_PRODUCT_NAME.equals(targetEntityType.getName())){
+								query.addConditions(DSL.field("product.id").eq(uriResourceEntitySet.getKeyPredicates().get(0).getText()));
+								}
+								if(EdmProvider.ET_SUPPLIER_NAME.equals(targetEntityType.getName())){
+								query.addConditions(DSL.field("supplier.id").eq(uriResourceEntitySet.getKeyPredicates().get(0).getText()));
+								}
+					}
+				
+					}
+				if(i != 0)
+				query = Util.buildQueryStep(query, resourcePaths.get(i - 1), resourcePaths.get(i), metadata);
+
+			}
+
+
+		Result<Record> result = query.fetch();
+		if (result.isEmpty())
+			  throw new ODataApplicationException("Nothing found.", HttpStatusCode.NOT_FOUND.getStatusCode(), Locale.ROOT);
+		return Util.getEntity(edmEntityType, result.get(0), this);
+	}
+	public Entity createEntityData(EdmEntitySet edmEntitySet, Entity requestEntity) throws IOException, ODataApplicationException, ExpressionVisitException {
+		Entity result = null;	
+[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
+		if (EdmProvider.ES_[entitySet.name.toUpper()/]_NAME.equals(edmEntitySet.getName())) {
+			result = create[entitySet.entityType.name.toUpperFirst()/](edmEntitySet.getEntityType(), requestEntity);
+			}
+[/for]
+		return result;
+		
+		}
+	  public void updateEntityData(EdmEntitySet edmEntitySet, List<UriParameter> keyParams, Entity updateEntity,
+		      HttpMethod httpMethod) throws ODataApplicationException {
+
+		 if(! httpMethod.equals(HttpMethod.PATCH)) {
+				throw new ODataApplicationException("Not supported.", HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
+		 }
+		    EdmEntityType edmEntityType = edmEntitySet.getEntityType();
+
+[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
+		    if (edmEntityType.getName().equals(EdmProvider.ET_[entitySet.entityType.name.toUpper()/]_NAME)) {
+		      update[entitySet.entityType.name.toUpperFirst()/](edmEntityType, keyParams, updateEntity, httpMethod);
+		    }
+[/for]
+		  }
+	public void deleteEntityData(EdmEntitySet edmEntitySet, List<UriParameter> keyPredicates) throws ODataApplicationException {
+		 EdmEntityType edmEntityType = edmEntitySet.getEntityType();
+[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
+		    if (edmEntityType.getName().equals(EdmProvider.ET_[entitySet.entityType.name.toUpper()/]_NAME)) {
+		      delete[entitySet.entityType.name.toUpperFirst()/](edmEntityType, keyPredicates);
+		    }
+[/for]
+		
+	}
+	public void updateEntityReferenceData(EdmEntityType sourceEdmEntityType, Entity sourceEntity,
+			EdmNavigationProperty targetEdmNavigationProperty, Entity targetEntity) {
+[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
+		if (sourceEdmEntityType.getName().equals(EdmProvider.ET_[entitySet.entityType.name.toUpper()/]_NAME)) {
+[for(navigationProperty : ODNavigationProperty | entitySet.entityType.navigationProperties) ? ((navigationProperty.multivalued = false) or (navigationProperty.multivalued.oclIsUndefined()))]
+			if (targetEdmNavigationProperty.getName().equals("[navigationProperty.name/]"))
+				update[entitySet.entityType.name.concat(navigationProperty.name)/](sourceEntity, targetEntity);
+[/for]
+		}
+[/for]
+	}
+[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
+	private void delete[entitySet.entityType.name.toUpperFirst()/](EdmEntityType edmEntityType, List<UriParameter> keyParams) throws ODataApplicationException {
+		  Entity entity = get[entitySet.entityType.name.toUpperFirst()/](edmEntityType,keyParams);
+
+		 getCreate().deleteFrom(DSL.table("[entitySet.entityType.name.toLower()/]")).where(DSL.field("[entitySet.entityType.name.toLower()/].id").eq(keyParams.get(0).getText())).execute();
+	}
+
+	private Entity get[entitySet.entityType.name.toUpperFirst()/](EdmEntityType edmEntityType, List<UriParameter> keyParams) throws ODataApplicationException {
+		
+		SelectFinalStep<Record> select = getCreate().select();
+		SelectQuery<Record> query = select.getQuery();
+		query.addFrom(DSL.table("[entitySet.entityType.name.toLower()/]"));
+			query.addConditions(DSL.field("[entitySet.entityType.name.toLower()/].id").eq(keyParams.get(0).getText()));
+			Result<Record> result = query.fetch();
+			if (result.isEmpty())
+				  throw new ODataApplicationException("Nothing found.", HttpStatusCode.NOT_FOUND.getStatusCode(), Locale.ROOT);
+			return Util.getEntity(edmEntityType, result.get(0), this);
+	}
+	public Entity create[entitySet.entityType.name.toUpperFirst()/](EdmEntityType edmEntityType, Entity entity) {
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		InsertQuery<Record> insertQuery = create.insertQuery(DSL.table("[entitySet.entityType.name.toLower()/]"));
+		[for (property : ODProperty | entitySet.entityType.properties)]
+			[if(property.type.oclIsKindOf(ODPrimitiveType) and (property.multivalued.oclIsUndefined() or property.multivalued = false))]
+		if(entity.getProperty("[property.name/]")!= null)
+			[if(property.type.name = 'Edm.Date')]
+			insertQuery.addValue(DSL.field("[property.name.toLower()/]"),sdf.format(((GregorianCalendar) entity.getProperty("[property.name/]").getValue()).getTime()));
+		[else]
+			insertQuery.addValue(DSL.field("[property.name.toLower()/]"),entity.getProperty("[property.name/]").getValue());
+			[/if]
+		[/if]
+			[if(property.type.oclIsKindOf(ODComplexType) and (property.multivalued.oclIsUndefined() or property.multivalued = false))]
+		if(entity.getProperty("[property.name/]")!= null) {
+			ComplexValue [property.name.toLower()/] = entity.getProperty("[property.name/]").asComplex();
+			InsertQuery<Record> insert[property.name/] = create.insertQuery(DSL.table("[property.name.toLower()/]"));
+			for (Property [property.name.toLower()/]Property : [property.name.toLower()/].getValue()) {
+				if([property.name.toLower()/]Property.getType().equals(EdmPrimitiveTypeKind.Date.getFullQualifiedName().toString()))
+					insert[property.name/].addValue(DSL.field([property.name.toLower()/]Property.getName().toLowerCase()), sdf.format([property.name.toLower()/]Property.getValue()));
+				else
+					insert[property.name/].addValue(DSL.field([property.name.toLower()/]Property.getName().toLowerCase()), [property.name.toLower()/]Property.getValue());
+			}
+			insert[property.name/].execute();
+			insertQuery.addValue(DSL.field("[property.name.toLower()/]_id"), create.selectFrom(DSL.table("[property.name.toLower()/]"))
+					.orderBy(DSL.field("id").desc()).limit(0, 1).fetchOne().get("id"));
+		}
+		[/if]
+		[/for]
+		insertQuery.execute();
+
+	 	if(entity.getProperty("[entitySet.entityType.key -> first().property.name/]")== null) {
+			entity.addProperty(new Property(null, "[entitySet.entityType.key -> first().property.name/]", ValueType.PRIMITIVE, create.selectFrom(DSL.table("[entitySet.entityType.name.toLower()/]")).orderBy(DSL.field("[entitySet.entityType.key -> first().property.name.toLower()/]").desc()).limit(0, 1).fetchOne().get("[entitySet.entityType.key -> first().property.name.toLower()/]")));
+		}
+
+	    return entity;
+
+	  }
+	public Entity update[entitySet.entityType.name.toUpperFirst()/](EdmEntityType edmEntityType, List<UriParameter> keyParams, Entity entity, HttpMethod httpMethod) {
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		
+		UpdateQuery<Record> updateQuery = create.updateQuery(DSL.table("[entitySet.entityType.name.toLower()/]"));
+
+[for (p : ODProperty | entitySet.entityType.properties)]
+			[if(p.type.oclIsKindOf(ODPrimitiveType) and (p.multivalued.oclIsUndefined() or p.multivalued = false) and entitySet.entityType.key->collect(property)-> count(p) = 0 )]
+		if(entity.getProperty("[p.name/]")!= null)
+			[if(p.type.name = 'Edm.Date')]
+			updateQuery.addValue(DSL.field("[p.name.toLower()/]"),sdf.format(((GregorianCalendar) entity.getProperty("[p.name/]").getValue()).getTime()));
+		[else]
+			updateQuery.addValue(DSL.field("[p.name.toLower()/]"),entity.getProperty("[p.name/]").getValue());
+			[/if]
+		[/if]
+[if(p.type.oclIsKindOf(ODComplexType) and (p.multivalued.oclIsUndefined() or p.multivalued = false))]
+		if(entity.getProperty("[p.name/]")!= null) {
+			ComplexValue [p.name.toLower()/] = entity.getProperty("[p.name/]").asComplex();
+			UpdateQuery<Record> update[p.name/] = create.updateQuery(DSL.table("[p.name.toLower()/]"));
+			for (Property [p.name.toLower()/]Property : [p.name.toLower()/].getValue()) {
+				if([p.name.toLower()/]Property.getType().equals(EdmPrimitiveTypeKind.Date.getFullQualifiedName().toString()))
+					update[p.name/].addValue(DSL.field([p.name.toLower()/]Property.getName().toLowerCase()), sdf.format([p.name.toLower()/]Property.getValue()));
+				else
+					update[p.name/].addValue(DSL.field([p.name.toLower()/]Property.getName().toLowerCase()), [p.name.toLower()/]Property.getValue());
+			}
+			
+			update[p.name/].addConditions(DSL.field("id").eq(create.selectFrom(DSL.table("[entitySet.entityType.name.toLower()/]"))
+					.where(DSL.field("id").eq(keyParams.get(0).getText())).fetchOne().get("[p.name.toLower()/]_id")));
+		update[p.name/].execute();
+					
+		}
+		[/if]
+[/for]
+		
+		updateQuery.addConditions(DSL.field(keyParams.get(0).getName().toLowerCase()).eq(keyParams.get(0).getText()));
+		updateQuery.execute();
+
+	
+	    return entity;
+
+	  }
+[for(navigationProperty : ODNavigationProperty | entitySet.entityType.navigationProperties) ? ((navigationProperty.multivalued = false) or (navigationProperty.multivalued.oclIsUndefined()))]
+	public void update[entitySet.entityType.name.concat(navigationProperty.name)/](Entity [entitySet.entityType.name.toLowerFirst()/], Entity [navigationProperty.name.toLowerFirst()/]) {
+		UpdateQuery<Record> updateQuery = create.updateQuery(DSL.table("[entitySet.entityType.name.toLower()/]"));
+		updateQuery.addValue(DSL.field("[navigationProperty.name.toLower()/]_id"), [navigationProperty.name.toLowerFirst()/].getProperty("[navigationProperty.type.oclAsType(ODEntityType).key -> first().property.name/]").getValue());
+		updateQuery.addConditions(DSL.field("[entitySet.entityType.key->first().property.name.toLower()/]").eq([entitySet.entityType.name.toLowerFirst()/].getProperty("[entitySet.entityType.key->first().property.name/]").getValue()));
+		updateQuery.execute();
+	}
+[/for]
+
+[/for]
 }
 [/file]
 [/template]

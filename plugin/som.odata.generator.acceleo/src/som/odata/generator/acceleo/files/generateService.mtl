@@ -12,6 +12,7 @@
 [import som::odata::generator::acceleo::files::service::generateUtil /]
 [import som::odata::generator::acceleo::files::service::generateFilterExpressionVisitor /]
 [import som::odata::generator::acceleo::files::service::generateEntityProcessor /]
+[import som::odata::generator::acceleo::files::service::generateEntityReferenceProcessor /]
 [template public generateService(anODService : ODService)]
 
 [comment @main /]
@@ -27,5 +28,6 @@
 [anODService.generateFilterExpressionVisitor() /]
 [anODService.generateEntityProcessor() /]
 [anODService.generateUtil() /]
+[anODService.generateEntityReferenceProcessor() /]
 [/template]
 

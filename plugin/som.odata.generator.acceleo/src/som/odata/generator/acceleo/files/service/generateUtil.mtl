@@ -126,12 +126,12 @@ public class Util {
 [/for]
 			return collection;
 	}
-	public static Entity getEntity(EdmEntitySet edmEntitySet, Record record, Storage storage) {
+	public static Entity getEntity(EdmEntityType edmEntityType, Record record, Storage storage) {
 		
 		Entity entity = new Entity();
-[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
-		if (EdmProvider.ES_[entitySet.name.toUpper()/]_NAME.equals(edmEntitySet.getName())) {
-[for (property : ODProperty | entitySet.entityType.properties)]
+[for (e : ODEntityType | schema.entityTypes)]
+		if (EdmProvider.ET_[e.name.toUpper()/]_NAME.equals(edmEntityType.getName())) {
+[for (property : ODProperty | e.properties)]
 [if(property.type.oclIsKindOf(ODPrimitiveType) and (property.multivalued.oclIsUndefined() or property.multivalued = false))]
 				entity.addProperty(new Property(null, "[property.name /]", ValueType.PRIMITIVE, record.get("[property.name.toLower() /]")));
 [elseif (property.type.oclIsKindOf(ODComplexType) and (property.multivalued.oclIsUndefined() or property.multivalued = false) )]
@@ -143,7 +143,7 @@ public class Util {
 				entity.addProperty(new Property(null, "[property.name/]", ValueType.COMPLEX, [property.name.toLower()/]Type));				
 [/if]
 [/for]
-				entity.setId(createId("[entitySet.name/]", record.get("[entitySet.entityType.key -> first().property.name.toLower()/]")));
+				entity.setId(createId("[schema.entityContainer.entitySets -> select(entityType = e)-> first().name/]", record.get("[e.key -> first().property.name.toLower()/]")));
 			}
 [/for]		
 

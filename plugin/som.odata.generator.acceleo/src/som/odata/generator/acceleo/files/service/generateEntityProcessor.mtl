@@ -7,17 +7,16 @@
 package odata.demo.service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Locale;
-
 import org.apache.olingo.commons.api.data.ContextURL;
 import org.apache.olingo.commons.api.data.Entity;
 import org.apache.olingo.commons.api.data.ContextURL.Suffix;
 import org.apache.olingo.commons.api.edm.EdmEntitySet;
 import org.apache.olingo.commons.api.edm.EdmEntityType;
-import org.apache.olingo.commons.api.edm.EdmNavigationProperty;
 import org.apache.olingo.commons.api.format.ContentType;
 import org.apache.olingo.commons.api.http.HttpHeader;
+import org.apache.olingo.commons.api.http.HttpMethod;
 import org.apache.olingo.commons.api.http.HttpStatusCode;
 import org.apache.olingo.server.api.OData;
 import org.apache.olingo.server.api.ODataApplicationException;
@@ -25,22 +24,19 @@ import org.apache.olingo.server.api.ODataLibraryException;
 import org.apache.olingo.server.api.ODataRequest;
 import org.apache.olingo.server.api.ODataResponse;
 import org.apache.olingo.server.api.ServiceMetadata;
+import org.apache.olingo.server.api.deserializer.DeserializerResult;
+import org.apache.olingo.server.api.deserializer.ODataDeserializer;
 import org.apache.olingo.server.api.processor.EntityProcessor;
 import org.apache.olingo.server.api.serializer.EntitySerializerOptions;
 import org.apache.olingo.server.api.serializer.ODataSerializer;
 import org.apache.olingo.server.api.serializer.SerializerException;
 import org.apache.olingo.server.api.serializer.SerializerResult;
 import org.apache.olingo.server.api.uri.UriInfo;
+import org.apache.olingo.server.api.uri.UriParameter;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
 import org.apache.olingo.server.api.uri.UriResourceNavigation;
 import org.apache.olingo.server.api.uri.queryoption.expression.ExpressionVisitException;
-import org.jooq.Record;
-import org.jooq.Result;
-import org.jooq.SelectFinalStep;
-import org.jooq.SelectQuery;
-import org.jooq.impl.DSL;
-
 import odata.demo.util.Util;
 
 public class SQLEntityProcessor implements EntityProcessor {
@@ -80,7 +76,7 @@ public class SQLEntityProcessor implements EntityProcessor {
 		}
 		Entity entity = null;
 		try {
-			entity = getData(uriInfo, edmEntitySet);
+			entity = storage.readEntityData(uriInfo, edmEntityType, serviceMetadata);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ExpressionVisitException e) {
@@ -99,66 +95,81 @@ public class SQLEntityProcessor implements EntityProcessor {
 	    response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
 	}
 
-	private Entity getData(UriInfo uriInfo, EdmEntitySet edmEntitySet) throws IOException, ODataApplicationException, ExpressionVisitException {
-	
-		List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
-		SelectFinalStep<Record> select = storage.getCreate().select();
-		SelectQuery<Record> query = select.getQuery();
-		if (resourcePaths.size() != 1) {
-			for (int i = resourcePaths.size() - 1; i > 0; i--) {
-				if (i == (resourcePaths.size() - 1)) {
-					UriResource uriResource = resourcePaths.get(i);
-					if (uriResource instanceof UriResourceNavigation) {
-						UriResourceNavigation uriResourceNavigation = (UriResourceNavigation) uriResource;
-						EdmNavigationProperty edmNavigationProperty = uriResourceNavigation.getProperty();
-						EdmEntityType targetEntityType = edmNavigationProperty.getType();
-						query.addFrom(DSL.table(targetEntityType.getName().toLowerCase()));
-						if(uriResourceNavigation.getKeyPredicates() != null && !uriResourceNavigation.getKeyPredicates().isEmpty()){
-[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
-							if(EdmProvider.ET_[entitySet.entityType.name.toUpper()/]_NAME.equals(targetEntityType.getName())){
-							query.addConditions(DSL.field("[entitySet.entityType.name.toLower()/].id").eq(uriResourceNavigation.getKeyPredicates().get(0).getText()));
-							}
-[/for]
 
-						}
-					}
-				}
-
-				query = Util.buildQueryStep(query, resourcePaths.get(i - 1), resourcePaths.get(i), serviceMetadata);
-
-			}
-		}
-		if (resourcePaths.size() == 1) {
-[for (entitySet : ODEntitySet | schema.entityContainer.entitySets)]
-			if (EdmProvider.ES_[entitySet.name.toUpper()/]_NAME.equals(edmEntitySet.getName())) {
-				query.addFrom(DSL.table("[entitySet.entityType.name.toLower()/]"));
-			}
-[/for]
-		}
-
-		Result<Record> result = query.fetch();
-		if (result.isEmpty())
-			  throw new ODataApplicationException("Nothing found.", HttpStatusCode.NOT_FOUND.getStatusCode(), Locale.ROOT);
-		return Util.getEntity(edmEntitySet, result.get(0), storage);
-	}
 	public void createEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo, ContentType requestFormat,
 			ContentType responseFormat) throws ODataApplicationException, ODataLibraryException {
-		   throw new ODataApplicationException("Not supported.", HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
+		  		List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+		UriResourceEntitySet uriResourceEntitySet = null;
+		EdmEntityType edmEntityType = null;
+		EdmEntitySet edmEntitySet = null;
+		if (resourcePaths.get(resourcePaths.size() - 1) instanceof UriResourceEntitySet) {
+			uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(resourcePaths.size() - 1);
+			edmEntitySet = uriResourceEntitySet.getEntitySet();
+			edmEntityType = edmEntitySet.getEntityType();
+
+		}
+		
+
+		if (resourcePaths.get(resourcePaths.size() - 1) instanceof UriResourceNavigation) {
+			edmEntityType = ((UriResourceNavigation) resourcePaths.get(resourcePaths.size() - 1)).getProperty()
+					.getType();
+			edmEntitySet = Util.getEnitySetFromEntityType(edmEntityType, serviceMetadata);
+		}
+		
+		InputStream requestInputStream = request.getBody();
+		ODataDeserializer deserializer = this.odata.createDeserializer(requestFormat);
+		DeserializerResult result = deserializer.entity(requestInputStream, edmEntityType);
+		Entity requestEntity = result.getEntity();
+		Entity createdEntity = null;
+			try {
+				createdEntity = storage.createEntityData(edmEntitySet, requestEntity);
+			} catch (ExpressionVisitException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
+		ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).build(); 
+		EntitySerializerOptions options = EntitySerializerOptions.with().contextURL(contextUrl).build(); 
+		
+		ODataSerializer serializer = this.odata.createSerializer(responseFormat);
+		SerializerResult serializedResponse = serializer.entity(serviceMetadata, edmEntityType, createdEntity, options);
+		
+		response.setContent(serializedResponse.getContent());
+		response.setStatusCode(HttpStatusCode.CREATED.getStatusCode());
+		response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
 		
 	}
 
 	public void updateEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo, ContentType requestFormat,
 			ContentType responseFormat) throws ODataApplicationException, ODataLibraryException {
-		   throw new ODataApplicationException("Not supported.", HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
+		List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+		UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(0); 
+		EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
+		EdmEntityType edmEntityType = edmEntitySet.getEntityType();
+
+		InputStream requestInputStream = request.getBody();
+		ODataDeserializer deserializer = this.odata.createDeserializer(requestFormat);
+		DeserializerResult result = deserializer.entity(requestInputStream, edmEntityType);
+		Entity requestEntity = result.getEntity();
+		List<UriParameter> keyPredicates = uriResourceEntitySet.getKeyPredicates();
+		HttpMethod httpMethod = request.getMethod();
+		storage.updateEntityData(edmEntitySet, keyPredicates, requestEntity, httpMethod);
+		
+		response.setStatusCode(HttpStatusCode.NO_CONTENT.getStatusCode());
 		
 	}
 
 	public void deleteEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo)
 			throws ODataApplicationException, ODataLibraryException {
-		   throw new ODataApplicationException("Not supported.", HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
-		
+				List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+				
+				UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(0); 
+				EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
+				List<UriParameter> keyPredicates = uriResourceEntitySet.getKeyPredicates();
+				storage.deleteEntityData(edmEntitySet, keyPredicates);
+				response.setStatusCode(HttpStatusCode.NO_CONTENT.getStatusCode());	
 	}
-
 	
 }
 

@@ -24,11 +24,11 @@
 	<NavigationProperty Name="Products" Type="Collection(com.example.ODataDemo.Product)" Partner="Supplier" />
 	</EntityType>
 <ComplexType Name="Address"  >
-	<Property Name="Country" Type="Edm.String" />
 	<Property Name="Street" Type="Edm.String" />
 	<Property Name="City" Type="Edm.String" />
 	<Property Name="State" Type="Edm.String" />
 	<Property Name="ZipCode" Type="Edm.String" />
+	<Property Name="Country" Type="Edm.String" />
 </ComplexType>
 <EntityContainer Name="DemoService">
 	<EntitySet Name="Products" EntityType="com.example.ODataDemo.Product">

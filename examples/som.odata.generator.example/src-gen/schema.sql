@@ -20,11 +20,11 @@ CREATE TABLE supplier(
 );
 CREATE TABLE address(
 	id INT not null,
-	country VARCHAR(255) ,
 	street VARCHAR(255) ,
 	city VARCHAR(255) ,
 	state VARCHAR(255) ,
 	zipcode VARCHAR(255) ,
+	country VARCHAR(255) ,
 	PRIMARY KEY (id)
 );
 # Add references

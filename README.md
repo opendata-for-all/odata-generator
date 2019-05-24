@@ -21,7 +21,7 @@ OData-generator requires:
 
 ![Add repository](https://opendata-for-all.github.io/odata-generator/screenshots/add-repo.png)
 
-4. Select *OData generator* then click on *Next*.
+4. Select *OData generator* then click on *Next* (uncheck *Group items by category* if the list is empty).
 
 ![Install](https://opendata-for-all.github.io/odata-generator/screenshots/avail-software.png)
 
